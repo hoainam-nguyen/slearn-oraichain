@@ -101,13 +101,14 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 // import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import BotRenderer from "BotRenderer";
 const RestaurantLandingPage = React.lazy(() => import ("./demos/RestaurantLandingPage"));
 const Login = React.lazy(() => import ("./pages/Login"))
 const Signup = React.lazy(() => import ("./pages/Signup"))
 const Pricing = React.lazy(() => import ("./pages/Pricing"))
 const Blog = React.lazy(() => import ("./pages/BlogIndex"))
 const About = React.lazy(() => import ("./pages/AboutUs"))
+const User = React.lazy(() => import ("./pages/User"))
 
 
 export default function App() {
@@ -129,6 +130,8 @@ export default function App() {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/blog" element={<Blog/>}/>
             <Route path="/about" element={<About/>}/>
+            <Route path="/user" element={<User/>}/>
+            <Route path="/chatbot/:type/:name" element={<BotRenderer/>}/>
           </Routes>
         </Suspense>
       </Router>

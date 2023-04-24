@@ -114,13 +114,14 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   <Link to='/pricing'>
     <NavLink >Pricing</NavLink>
   </Link>
+  <Link>
+    <NavLink >Contact Us</NavLink>
+  </Link>
 
-  <NavLink href="/#">Contact Us</NavLink>
-
-  <Link to="/login">
+  <Link to="/user">
     <NavLink tw="flex items-center lg:ml-12!">
     <UserIcon tw="w-6 h-6 lg:mr-2 border border-solid border-gray-500 rounded-full p-1"></UserIcon>
-      {data.user.status}
+      Đỗ Văn Tiến
     </NavLink>
   </Link>
 </NavLinks>
@@ -137,7 +138,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   );
 
   logoLink = logoLink || defaultLogoLink;
-  links = links || (!data.signin.status)? defaultLinks:defaultLinkstrue;
+  links = links || (data.signin.status)? defaultLinks:defaultLinkstrue;
 
   return (
     <Header className={className || "header-light"}>
