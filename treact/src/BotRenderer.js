@@ -16,7 +16,7 @@ export const Components =
     {
         LanguageGPT:{
             url:"#",
-            LanguageGPT:LanguageGPT
+            Component:LanguageGPT
         }
     }
 
