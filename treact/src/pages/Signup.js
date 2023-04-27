@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate  } from 'react-router-dom';
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import { Container as ContainerBase } from "components/misc/Layouts";
 import tw from "twin.macro";
@@ -9,6 +10,9 @@ import logo from "images/logo.svg";
 import googleIconImageSrc from "images/google-icon.png";
 import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus.svg";
+import Database from "../Firebase";
+import { ref, set, onValue } from "firebase/database";
+import { AppContext } from "store";
 
 const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
@@ -74,8 +78,34 @@ export default ({
   tosUrl = "#",
   privacyPolicyUrl = "#",
   signInUrl = "#"
-}) => (
-  <AnimationRevealPage>
+}) => {
+  const [ password, setPassword ] = useState('')
+  const [ email, setEmail ] = useState('')
+  const data = useContext(AppContext)
+  const history = useNavigate()
+  const onSubmit = (event) => {
+    event.preventDefault()
+    const starCountRef = ref(Database, 'users/' + email.split('.')[0]);
+    let flag = false
+    onValue(starCountRef, (snapshot) => {
+      if (!snapshot.exists()) {
+        set(ref(Database, 'users/' + email.split('.')[0]), {
+          email: email,
+          password: password,
+        });
+        flag = true;
+        data.user.set(email.split('.')[0])
+        data.signin.set(true)
+        history('/')
+      }
+    })
+    if (flag) {
+      alert(email + " has already")
+    }
+
+  }
+
+  return (<AnimationRevealPage>
     <Container>
       <Content>
         <MainContainer>
@@ -98,9 +128,9 @@ export default ({
               <DividerTextContainer>
                 <DividerText>Or Sign up with your e-mail</DividerText>
               </DividerTextContainer>
-              <Form>
-                <Input type="email" placeholder="Email" />
-                <Input type="password" placeholder="Password" />
+              <Form onSubmit={onSubmit}>
+                <Input type="email" placeholder="Email" value={email} onChange={(e)=> setEmail(e.target.value)} />
+                <Input type="password" placeholder="Password" value={password} onChange={(e)=> setPassword(e.target.value)} />
                 <SubmitButton type="submit">
                   <SubmitButtonIcon className="icon" />
                   <span className="text">{submitButtonText}</span>
@@ -131,5 +161,5 @@ export default ({
         </IllustrationContainer>
       </Content>
     </Container>
-  </AnimationRevealPage>
-);
+  </AnimationRevealPage>)
+}

@@ -102,6 +102,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BotRenderer from "BotRenderer";
+
 const RestaurantLandingPage = React.lazy(() => import ("./demos/RestaurantLandingPage"));
 const Login = React.lazy(() => import ("./pages/Login"))
 const Signup = React.lazy(() => import ("./pages/Signup"))

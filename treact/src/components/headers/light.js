@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
+import { AppContext } from "store.js";
 
 import useAnimatedNavToggler from "../../helpers/useAnimatedNavToggler.js";
 
 import logo from "../../images/logo.svg";
-import { AppContext } from "store.js";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 import { ReactComponent as UserIcon } from "images/user-solid.svg";
@@ -185,7 +185,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   <Link to="/user">
     <NavLink tw="flex items-center lg:ml-12!">
     <UserIcon tw="w-6 h-6 lg:mr-2 border border-solid border-gray-500 rounded-full p-1"></UserIcon>
-      Đỗ Văn Tiến
+      {data.user.status}
     </NavLink>
   </Link>
 </NavLinks>
@@ -202,7 +202,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   );
 
   logoLink = logoLink || defaultLogoLink;
-  links = links || (data.signin.status)? defaultLinks:defaultLinkstrue;
+  links = links || (!data.signin.status)? defaultLinks:defaultLinkstrue;
 
   return (
     <Header className={className || "header-light"}>

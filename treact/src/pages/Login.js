@@ -11,6 +11,8 @@ import googleIconImageSrc from "images/google-icon.png";
 import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
 import { AppContext } from "store";
+import Database from "../Firebase.js";
+import { ref, onValue, child, get} from "firebase/database";
 
 const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
@@ -55,6 +57,8 @@ const IllustrationImage = styled.div`
   ${tw`m-12 xl:m-16 w-full max-w-sm bg-contain bg-center bg-no-repeat`}
 `;
 
+
+
 export default ({
   logoLinkUrl = "#",
   illustrationImageSrc = illustration,
@@ -78,27 +82,33 @@ export default ({
 
 }) => {
   const [ password, setPassword ] = useState('')
+  const [ email, setEmail ] = useState('')
   const data = useContext(AppContext)
   const history = useNavigate()
-  const onlicksUser = (e) => {
-    data.user.set(e.target.value)
-  }
   const onClickPassword = (e) => {
     setPassword(e.target.value)
   }
 
   const onClickSignup = (event) => {
     event.preventDefault()
-    if (password === "admin") {
-        data.signin.set(true)
-        console.log(data)
-        history('/')
-    }
-    else
-    {
-      alert('Tên đăng nhập hoặc mật khẩu không đúng');
-    }
-    
+    const dataRef = ref(Database)
+    get(child(dataRef, 'users/' + email.split(".")[0])).then((snapshot) => {
+      if(snapshot.exists()) {
+        const data_val = snapshot.val()
+        if (data_val.email === email && data_val.password === password) {
+          data.user.set(email)
+          data.signin.set(true)
+          history("/")
+        }
+        else
+        {
+          alert("Please enter your email or password")
+        }
+      }
+      else {
+        alert('Account is not available')
+      }
+    })
   }
 
   return (<AnimationRevealPage>
@@ -125,8 +135,8 @@ export default ({
                 <DividerText>Or Sign in with your e-mail</DividerText>
               </DividerTextContainer>
               <Form onSubmit={onClickSignup}>
-                <Input type="email" onChange={onlicksUser} placeholder="Email" />
-                <Input type="password" onChange={onClickPassword} placeholder="Password" />
+                <Input type="email" onChange={(e)=> setEmail(e.target.value)} value={email} placeholder="Email" />
+                <Input type="password" onChange={onClickPassword} placeholder="Password" value={password} />
                 <SubmitButton type="submit" >
                   <SubmitButtonIcon className="icon" />
                   <span className="text">{submitButtonText}</span>
