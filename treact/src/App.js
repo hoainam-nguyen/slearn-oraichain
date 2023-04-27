@@ -109,6 +109,9 @@ const Pricing = React.lazy(() => import ("./pages/Pricing"))
 const Blog = React.lazy(() => import ("./pages/BlogIndex"))
 const About = React.lazy(() => import ("./pages/AboutUs"))
 const User = React.lazy(() => import ("./pages/User"))
+const Blogpost = React.lazy(() => import ("./pages/Blogpost"))
+const Forum = React.lazy(() => import ("./pages/Forum"))
+const Usernew = React.lazy(() => import ("./pages/usernew"))
 
 
 export default function App() {
@@ -132,6 +135,9 @@ export default function App() {
             <Route path="/about" element={<About/>}/>
             <Route path="/user" element={<User/>}/>
             <Route path="/chatbot/:type/:name" element={<BotRenderer/>}/>
+            <Route path="/blog/post" element={<Blogpost/>}/>
+            <Route path="/forum" element={<Forum/>}/>
+            <Route path="/usernew" element={<Usernew/>}/>
           </Routes>
         </Suspense>
       </Router>

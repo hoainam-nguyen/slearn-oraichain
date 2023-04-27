@@ -57,6 +57,7 @@ const TextReq = tw.div`
     m-2
     p-2
 `
+const Message = tw.div`p-2 my-2 mx-auto max-w-md rounded-xl shadow-md`;
 const TextRep = tw.div`
     rounded-lg
     m-2

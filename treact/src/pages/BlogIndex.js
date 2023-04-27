@@ -54,10 +54,10 @@ export default ({
         "https://images.unsplash.com/photo-1499678329028-101435549a4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1024&q=80",
       category: "Travel Tips",
       date: "April 21, 2020",
-      title: "Safely Travel in Foreign Countries",
+      title: "Why learn programming?",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      url: "https://timerse.com",
+      url: "/blog/post",
       featured: true
     },
     getPlaceholderPost(),
@@ -124,8 +124,8 @@ const getPlaceholderPost = () => ({
     "https://images.unsplash.com/photo-1418854982207-12f710b74003?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1024&q=80",
   category: "Travel Guide",
   date: "April 19, 2020",
-  title: "Visit the beautiful Alps in Switzerland",
+  title: "Why learn programming?",
   description:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  url: "https://reddit.com"
+  url: "/blog/post"
 });

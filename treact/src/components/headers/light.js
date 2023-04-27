@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
@@ -56,6 +56,45 @@ export const MobileNavLinks = motion(styled.div`
   }
 `);
 
+const DropdownContainer = tw.div`
+  relative
+  inline-block
+`;
+
+const DropdownMenu = styled.ul(props => [
+  `
+  background-color: #fff;
+  list-style: none;
+  position: absolute;
+  display: none;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  background-color: #fff;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  min-width: 120%;`,
+  props.value?`display: block;`:`display: none;`,
+  ]);
+
+const DropdownButton = styled.button`
+   ${tw`text-lg my-2 lg:text-sm lg:mx-6 lg:my-0
+  font-semibold tracking-wide transition duration-300
+  pb-1 border-b-2 border-transparent`}
+  `;
+
+const DropdownItem = tw.li`
+  px-4
+  py-2
+  hover:bg-gray-200
+  cursor-pointer
+  rounded-lg
+`;
+
 export const DesktopNavLinks = tw.nav`
   hidden lg:flex flex-1 justify-between items-center
 `;
@@ -75,6 +114,15 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
    * If you manipulate links here, all the styling on the links is already done for you. If you pass links yourself though, you are responsible for styling the links or use the helper styled components that are defined here (NavLink)
    */
   const data = useContext(AppContext)
+  const [showMenu, setShowMenu] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowMenu(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowMenu(false);
+  };
 
   const defaultLinks = [
     <NavLinks key={1}>
@@ -82,9 +130,14 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
         <NavLink>About</NavLink>
       </Link>
 
-      <Link to="/blog">
-        <NavLink >Blog</NavLink>
-      </Link>
+      <DropdownContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <DropdownButton>Solutions</DropdownButton>
+          <DropdownMenu value={showMenu}>
+          <DropdownItem>Item 1</DropdownItem>
+          <DropdownItem>Item 2</DropdownItem>
+          <DropdownItem>Item 3</DropdownItem>
+        </DropdownMenu>
+      </DropdownContainer>
 
       <Link to='/pricing'>
         <NavLink >Pricing</NavLink>
@@ -107,9 +160,20 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
     <NavLink>About</NavLink>
   </Link>
 
-  <Link to="/blog">
-    <NavLink >Blog</NavLink>
-  </Link>
+  <DropdownContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <DropdownButton>Solutions</DropdownButton>
+    <DropdownMenu value={showMenu}>
+          <DropdownItem>
+            <Link to="/forum">Forums</Link>
+          </DropdownItem>
+          <DropdownItem>
+            <Link to="/blog">Blogs</Link>
+          </DropdownItem>
+          <DropdownItem>
+            <Link to="/chatbot/language/LanguageGPT">Bot Chat</Link>
+          </DropdownItem>
+    </DropdownMenu>
+  </DropdownContainer>
 
   <Link to='/pricing'>
     <NavLink >Pricing</NavLink>
