@@ -8,7 +8,7 @@ import { AppContext } from "store.js";
 
 import useAnimatedNavToggler from "../../helpers/useAnimatedNavToggler.js";
 
-import logo from "../../images/logo.svg";
+import logo from "../../images/dummy_logo.jpg";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 import { ReactComponent as UserIcon } from "images/user-solid.svg";
@@ -80,6 +80,25 @@ const DropdownMenu = styled.ul(props => [
   min-width: 120%;`,
   props.value?`display: block;`:`display: none;`,
   ]);
+  const DropdownMenuLogout = styled.ul(props => [
+    `
+    background-color: #fff;
+    list-style: none;
+    position: absolute;
+    display: none;
+    top: 100%;
+    z-index: 1;
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    transform: translateX(70px);
+    min-width: 60%;`,
+    props.value?`display: block;`:`display: none;`,
+    ]);
 
 const DropdownButton = styled.button`
    ${tw`text-lg my-2 lg:text-sm lg:mx-6 lg:my-0
@@ -115,6 +134,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
    */
   const data = useContext(AppContext)
   const [showMenu, setShowMenu] = useState(false);
+  const [showlogout, setShowlogout] = useState(false);
 
   const handleMouseEnter = () => {
     setShowMenu(true);
@@ -143,7 +163,9 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
         <NavLink >Pricing</NavLink>
       </Link>
 
+      <Link>
       <NavLink href="/#">Contact Us</NavLink>
+      </Link>
 
       <Link to="/login">
         <NavLink tw="lg:ml-12!">
@@ -182,12 +204,21 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
     <NavLink >Contact Us</NavLink>
   </Link>
 
-  <Link to="/user">
-    <NavLink tw="flex items-center lg:ml-12!">
-    <UserIcon tw="w-6 h-6 lg:mr-2 border border-solid border-gray-500 rounded-full p-1"></UserIcon>
-      {data.user.status}
-    </NavLink>
-  </Link>
+    <DropdownContainer onMouseEnter={()=> setShowlogout(true)} onMouseLeave={()=>setShowlogout(false)}>
+      <DropdownButton>
+          <Link to="/user">
+            <NavLink tw="flex items-center lg:ml-12!">
+              <UserIcon tw="w-6 h-6 lg:mr-2 border border-solid border-gray-500 rounded-full p-1"></UserIcon>
+                {data.user.status}
+            </NavLink>
+        </Link>
+      </DropdownButton>
+      <DropdownMenuLogout value={showlogout}>
+          <DropdownItem onClick={(e)=> data.signin.set(false)}>
+            <Link to="/login">Logout</Link>
+          </DropdownItem>
+    </DropdownMenuLogout>
+    </DropdownContainer>
 </NavLinks>
   ]
 
@@ -197,7 +228,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   const defaultLogoLink = (
     <LogoLink href="/">
       <img src={logo} alt="logo" />
-      Treact
+      SLearn
     </LogoLink>
   );
 
