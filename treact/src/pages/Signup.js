@@ -117,7 +117,7 @@ export default ({
             <FormContainer>
               <SocialButtonsContainer>
                 {socialButtons.map((socialButton, index) => (
-                  <SocialButton key={index} href={socialButton.url}>
+                  <SocialButton key={index} onClick={(e) => alert("Is in the process of development")}>
                     <span className="iconContainer">
                       <img src={socialButton.iconImageSrc} className="icon" alt="" />
                     </span>
