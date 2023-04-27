@@ -1,0 +1,10 @@
+{
+    "fastapi_app": {
+        "method": "fastapi_app",
+        "args": {}
+    },
+    "bot_summarize": {
+        "method": "load_bot_summarize",
+        "args": {}
+    }
+}

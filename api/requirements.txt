@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+requests
+langchain=0.0.24
+pillow=9.5.0
+openai=0.10.5
