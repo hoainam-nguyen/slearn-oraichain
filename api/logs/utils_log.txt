@@ -1,0 +1,17 @@
+Log entry start: 2023-04-27 08:56:08,998 - utils_logger - INFO - fastapi_app loading success.
+Log entry start: 2023-04-27 08:56:38,882 - utils_logger - INFO - fastapi_app loading success.
+Log entry start: 2023-04-27 08:56:39,120 - utils_logger - INFO - Bot summarize loading success in 0.23645305633544922s.
+Log entry start: 2023-04-27 08:56:39,120 - utils_logger - INFO - Bot summarize loading success.
+Log entry start: 2023-04-27 08:56:39,121 - utils_logger - INFO - bot_summarize loading success.
+Log entry start: 2023-04-27 08:57:22,777 - utils_logger - INFO - fastapi_app loading success.
+Log entry start: 2023-04-27 08:57:23,018 - utils_logger - INFO - Bot summarize loading success in 0.23887014389038086s.
+Log entry start: 2023-04-27 08:57:23,018 - utils_logger - INFO - Bot summarize loading success.
+Log entry start: 2023-04-27 08:57:23,018 - utils_logger - INFO - bot_summarize loading success.
+Log entry start: 2023-04-27 08:57:34,545 - utils_logger - INFO - fastapi_app loading success.
+Log entry start: 2023-04-27 08:57:34,782 - utils_logger - INFO - Bot summarize loading success in 0.23574113845825195s.
+Log entry start: 2023-04-27 08:57:34,783 - utils_logger - INFO - Bot summarize loading success.
+Log entry start: 2023-04-27 08:57:34,783 - utils_logger - INFO - bot_summarize loading success.
+Log entry start: 2023-04-27 09:18:21,721 - utils_logger - INFO - fastapi_app loading success.
+Log entry start: 2023-04-27 09:18:22,151 - utils_logger - INFO - Bot summarize loading success in 0.4296555519104004s.
+Log entry start: 2023-04-27 09:18:22,152 - utils_logger - INFO - Bot summarize loading success.
+Log entry start: 2023-04-27 09:18:22,152 - utils_logger - INFO - bot_summarize loading success.

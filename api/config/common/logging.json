@@ -1,0 +1,73 @@
+{
+    "version": 1,
+    "disable_existing_loggers": false,
+    "formatters": {
+        "simple": {
+            "format": "Log entry start: %(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        }
+    },
+    "handlers": {
+        "api_io_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "INFO",
+            "formatter": "simple",
+            "filename": "logs/api_io_log.txt",
+            "maxBytes": 51200000,
+            "backupCount": 10,
+            "encoding": "utf-8"
+        },
+        "ai_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "DEBUG",
+            "formatter": "simple",
+            "filename": "logs/ai_log.txt",
+            "maxBytes": 51200000,
+            "backupCount": 10,
+            "encoding": "utf-8"
+        },
+        "utils_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "DEBUG",
+            "formatter": "simple",
+            "filename": "logs/utils_log.txt",
+            "maxBytes": 51200000,
+            "backupCount": 10,
+            "encoding": "utf-8"
+        },
+        "error_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "ERROR",
+            "formatter": "simple",
+            "filename": "logs/error_log.txt",
+            "maxBytes": 51200000,
+            "backupCount": 10,
+            "encoding": "utf-8"
+        }
+    },
+    "loggers": {
+        "app_logger": {
+            "level": "INFO",
+            "handlers": [
+                "api_io_file"
+            ]
+        },
+        "ai_logger": {
+            "level": "DEBUG",
+            "handlers": [
+                "ai_file"
+            ]
+        },
+        "utils_logger": {
+            "level": "DEBUG",
+            "handlers": [
+                "utils_file"
+            ]
+        },
+        "error_logger": {
+            "level": "ERROR",
+            "handlers": [
+                "error_file"
+            ]
+        }
+    }
+}
