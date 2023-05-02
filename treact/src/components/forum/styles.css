@@ -1,0 +1,47 @@
+.header-forum {
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.Latest-threads {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3%;
+    font-size: 36px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+  }
+
+.list-thread {
+    /* border: 1px solid #ccc; */
+    padding: 10px;
+    margin-bottom: 20px;
+    /* background-color: #f5f5f5; */
+    margin-left: 13%;
+    margin-right: 13%;
+}
+
+.thread-sumary:hover {
+  cursor: pointer;
+}
+
+.create-thread-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-thread-btn:hover {
+  cursor: pointer;
+}
+
+
+.SearchBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

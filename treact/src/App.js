@@ -102,6 +102,8 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BotRenderer from "BotRenderer";
+// import ThreadDetail from "./components/forum/ThreadDetail";
+
 
 const RestaurantLandingPage = React.lazy(() => import ("./demos/RestaurantLandingPage"));
 const Login = React.lazy(() => import ("./pages/Login"))
@@ -112,6 +114,10 @@ const About = React.lazy(() => import ("./pages/AboutUs"))
 const User = React.lazy(() => import ("./pages/User"))
 const Blogpost = React.lazy(() => import ("./pages/Blogpost"))
 const Forum = React.lazy(() => import ("./pages/Forum"))
+const Thread = React.lazy(() => import ("./pages/ThreadForum"))
+const CreateThreadForum = React.lazy(() => import ("./pages/CreateThreadForum"))
+
+// const Thread = React.lazy(() => import ("./pages/Thread"))
 const Usernew = React.lazy(() => import ("./pages/usernew"))
 
 
@@ -137,7 +143,9 @@ export default function App() {
             <Route path="/user" element={<User/>}/>
             <Route path="/chatbot/:type/:name" element={<BotRenderer/>}/>
             <Route path="/blog/post" element={<Blogpost/>}/>
-            <Route path="/forum" element={<Forum/>}/>
+            <Route path="/forum/" element={<Forum/>}/>
+            <Route path="/forum/thread/:id" element={<Thread/>}/>
+            <Route path="/forum/crete-new-thread" element={<CreateThreadForum/>}/>
             <Route path="/usernew" element={<Usernew/>}/>
           </Routes>
         </Suspense>
