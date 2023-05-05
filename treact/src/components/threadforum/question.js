@@ -1,8 +1,13 @@
 import React from "react";
-// import "./question.css"
-import "./styles.css"
-
 import tw from "twin.macro";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import "./styles.css"
+import LikeFeatures from "./LikeFeatures";
+import ViewFeatures from "./ViewFeatures";
+
 
 
 
@@ -27,34 +32,51 @@ const ThreadStats = tw.div`
 const InteractButton = tw.button`
   bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-blue-500`;
 
-  const TopicHagtagButton = tw.button`
+const TopicHagtagButton = tw.button`
   bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-green-500`;
 
-const Question = ({ id, title, topic, content, author, datePost, replies, views }) => {
-  const handleThreadClick = () => {
+
+
+const ThreadSummary = ({ id, title, topic, content, author, datePost, replies, views }) => {
+  const handleThreadClick = (e) => {
   // do something when the thread is clicked, such as navigate to the thread detail page
+    e.preventDefault();
     console.log('Thread clicked');
-    // window.location.href = `forum/thread/${id}`
+    window.location.href = `forum/thread/${id}`
   };
+ 
+  const handleNotifyBtn = () => {
+    // do something when the Notify button is clicked
+      toast('Notification has been enabled successfully!');
+    };
+  
 
   return (
     <div className="thread-sumary">
-      <ThreadContainer onClick={handleThreadClick}>
-      <ThreadTitle>{title}</ThreadTitle>
-      <TopicHagtagButton>{topic}</TopicHagtagButton>
-      <ThreadContent>{content}</ThreadContent>
-      <ThreadAuthor> Start by: {author}</ThreadAuthor>
-      <ThreadDate>At: {datePost}</ThreadDate>
-      <ThreadStats>
-      <span>{replies} replies</span>
-      <span>{views} views</span>
-      <InteractButton>Like</InteractButton>
-      <InteractButton>Share</InteractButton>
-      <InteractButton>Follow</InteractButton>
-      </ThreadStats>
+      <ThreadContainer>
+        <div className="sub-thread-sumary" onClick={handleThreadClick}>
+          <ThreadTitle>{title}</ThreadTitle>
+          <TopicHagtagButton>{topic}</TopicHagtagButton>
+          <ThreadContent>{content}</ThreadContent>
+          <ThreadAuthor> Start by: {author}</ThreadAuthor>
+          <ThreadDate>At: {datePost}</ThreadDate>
+        </div>
+      
+        <ThreadStats>
+          <span>{replies} replies</span>     
+        </ThreadStats>
+        <br></br>
+
+        <ThreadStats>
+          <LikeFeatures id={id} />
+          <ViewFeatures view_num={views} />
+          <InteractButton onClick={handleNotifyBtn}>Turn on Notify</InteractButton>
+        </ThreadStats>
+
+        <ToastContainer />  
       </ThreadContainer>
     </div>
   );
 };
 
-export default Question;
+export default ThreadSummary;

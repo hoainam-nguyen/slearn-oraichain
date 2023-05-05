@@ -7,55 +7,94 @@ import CreateNewThreadBtn from "./createNewThreadBtn";
 import "./styles.css"
 
 
+const Forum = ({
+    data = [
+        {
+            id: "1",
+            title: "Fix bug for React code",
+            topic: "React",
+            content: "I have a problem with my code...",
+            author: "Davis",
+            datePost: "1/1/2023",
+            replies: "4",
+            views: "100"
+        }, {
+            id: "2",
+            title: "Fix bug for React code",
+            topic: "Python",
+            content: "I have a problem with my code...",
+            author: "Davis",
+            datePost: "1/1/2023",
+            replies: "4",
+            views: "100"
+        }, {
+            id: "3",
+            title: "Fix bug for React code",
+            topic: "Machine Learning",
+            content: "I have a problem with my code...",
+            author: "Davis",
+            datePost: "1/1/2023",
+            replies: "4",
+            views: "100"
+        }
+    ]
+}) => {
+
+    return (
+        <>
+            <div className="header-forum">
+                <br></br>
+                <br></br>
+                <SearchBar/>
+                    <br></br>
 
 
-const Forum = () => {
+                    <CreateNewThreadBtn/>
+                        <br></br>
+                        <br></br>
 
-  return (
-      <>
-        <div className="header-forum">
-          <br></br>
-          <br></br>
-          <SearchBar />
-          <br></br>
-          
-       
-          <CreateNewThreadBtn />
-          <br></br>
-          <br></br>
-          
 
-        </div>
+                    </div>
 
-        <div className="Latest-threads">
-          Latest threads
-        </div>
+                    <div className="Latest-threads">
+                        Latest threads
+                    </div>
 
-        <div className="list-thread">
-          <ThreadSummary 
-            id="1"
-            title="Fix bug for React code" 
-            topic="React"
-            content="I have a problem with my code..." 
-            author="Davis" 
-            datePost="1/1/2023" 
-            replies="4" 
-            views="100" 
-          />
-          <ThreadSummary 
-            id="2"
-            title="Fix bug for React code" 
-            topic="React"
-            content="I have a problem with my code..." 
-            author="Davis" 
-            datePost="1/1/2023" 
-            replies="4" 
-            views="100" 
-          />    
-        </div>
-        
-      </>
-  );
+                    <div className="list-thread">
+                        {
+                        data.map((value, index) => {
+
+                            return (
+                                <ThreadSummary id={
+                                        value.id
+                                    }
+                                    title={
+                                        value.title
+                                    }
+                                    topic={
+                                        value.topic
+                                    }
+                                    content={
+                                        value.content
+                                    }
+                                    author={
+                                        value.author
+                                    }
+                                    datePost={
+                                        value.datePost
+                                    }
+                                    replies={
+                                        value.replies
+                                    }
+                                    views={
+                                        value.views
+                                    }/>
+                            )
+                        })
+                    } </div>
+
+                </>
+    );
 };
 
 export default Forum;

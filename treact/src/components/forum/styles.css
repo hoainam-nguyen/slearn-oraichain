@@ -20,13 +20,18 @@
     padding: 10px;
     margin-bottom: 20px;
     /* background-color: #f5f5f5; */
-    margin-left: 13%;
-    margin-right: 13%;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
-.thread-sumary:hover {
+.sub-thread-sumary:hover {
   cursor: pointer;
+  /* background-color: #bbdff7; */
 }
+
+/* .thread-sumary:hover {
+  background-color: #bbdff7;
+} */
 
 .create-thread-btn {
   display: flex;
@@ -34,10 +39,19 @@
   align-items: center;
 }
 
-.create-thread-btn:hover {
-  cursor: pointer;
+
+.click-here {
+  font-weight:bold;
+  margin:0 5px;
+  background-color:#ddedf7;
+  border-radius:10px;
+  padding:2px 5px;
 }
 
+.click-here:hover {
+  background-color: #bbdff7;
+  cursor: pointer
+}
 
 .SearchBar {
   display: flex;
@@ -45,3 +59,10 @@
   align-items: center;
 }
 
+.like-button {
+  margin-top: 10px;
+}
+
+.temp:hover {
+  
+}

@@ -120,7 +120,6 @@ export default ({
           <Heading>{heading}</Heading>
           
         </HeadingContainer>
-        
         <TestimonialsSlider >
                 <Testimonial>
                 <Subheading>{testimonials.information.title}</Subheading>
