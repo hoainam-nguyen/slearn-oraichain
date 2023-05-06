@@ -116,6 +116,9 @@ const Blogpost = React.lazy(() => import ("./pages/Blogpost"))
 const Forum = React.lazy(() => import ("./pages/Forum"))
 const Thread = React.lazy(() => import ("./pages/ThreadForum"))
 const CreateThreadForum = React.lazy(() => import ("./pages/CreateThreadForum"))
+const Advance = React.lazy(() => import ("./pages/Advance"))
+const AdvanceSummarize = React.lazy(() => import ("./pages/AdvanceSummarize"))
+const AdvanceExplain = React.lazy(() => import ("./pages/AdvanceExplain"))
 
 // const Thread = React.lazy(() => import ("./pages/Thread"))
 const Usernew = React.lazy(() => import ("./pages/usernew"))
@@ -147,6 +150,10 @@ export default function App() {
             <Route path="/forum/thread/:id" element={<Thread/>}/>
             <Route path="/forum/crete-new-thread" element={<CreateThreadForum/>}/>
             <Route path="/usernew" element={<Usernew/>}/>
+            <Route path="/advance/" element={<Advance/>}/>
+            <Route path="/advance/summarize" element={<AdvanceSummarize/>}/>
+            <Route path="/advance/explain" element={<AdvanceExplain/>}/>
+
           </Routes>
         </Suspense>
       </Router>
