@@ -1,7 +1,5 @@
 import React from "react";
-// import tw from "twin.macro";
-// import Thread from "./thread";
-import Question from "./QuestionContent";
+import ThreadSummary from "./ThreadSumary";
 import Answer from "./OthersUserAnswer";
 import MyAnswer from "./MyAnswer";
 import SearchBar from "./SearchBar";
@@ -42,87 +40,65 @@ const ThreadInfo = () => {
     return (
         <>
             <div className="header-forum">
-                <br></br>
-                <br></br>
                 <SearchBar/>
-                    <br></br>
+                <br></br>
+                <CreateNewThreadBtn/>
+            </div>
 
+            <div className="question">
+                <ThreadSummary id={
+                        question_fake_data.id
+                    }
+                    title={
+                        question_fake_data.title
+                    }
+                    topic={
+                        question_fake_data.topic
+                    }
+                    content={
+                        question_fake_data.content
+                    }
+                    author={
+                        question_fake_data.author
+                    }
+                    datePost={
+                        question_fake_data.datePost
+                    }
+                    replies={
+                        question_fake_data.replies
+                    }
+                    views={
+                        question_fake_data.views
+                    }/>
+            </div>
 
-                    <CreateNewThreadBtn/>
-                        <br></br>
-                        <br></br>
-
-
-                    </div>
-
-
-                    <br></br>
-                    <br></br>
-
-                    <br></br>
-
-                    <div className="question">
-                        <Question id={
-                                question_fake_data.id
-                            }
-                            title={
-                                question_fake_data.title
-                            }
-                            topic={
-                                question_fake_data.topic
+            <div className="answer">
+                {
+                answer_fake_data.map((value, index) => {
+                    return (
+                        <Answer id={
+                                value.id
                             }
                             content={
-                                question_fake_data.content
+                                value.content
                             }
                             author={
-                                question_fake_data.author
+                                value.author
                             }
                             datePost={
-                                question_fake_data.datePost
+                                value.datePost
                             }
-                            replies={
-                                question_fake_data.replies
-                            }
-                            views={
-                                question_fake_data.views
+                            userAvatar={
+                                value.userAvatar
                             }/>
-                    </div>
+                    )
+                })
+            } </div>
 
-                    <div className="answer">
-                        {
-                        answer_fake_data.map((value, index) => {
-                            return (
-                                <Answer id={
-                                        value.id
-                                    }
-                                    content={
-                                        value.content
-                                    }
-                                    author={
-                                        value.author
-                                    }
-                                    datePost={
-                                        value.datePost
-                                    }
-                                    userAvatar={
-                                        value.userAvatar
-                                    }/>
-                            )
-                        })
-                    } </div>
-
-                    <div className="my-answer">
-                        <MyAnswer userAvatar="https://i.imgur.com/8Km9tLL.png"/>
-                    </div>
-
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-
-                </>
+            <div className="my-answer">
+                <MyAnswer userAvatar="https://i.imgur.com/8Km9tLL.png"/>
+            </div>
+        </>
     );
 };
 

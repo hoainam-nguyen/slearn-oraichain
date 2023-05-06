@@ -43,18 +43,10 @@ const Forum = ({
     return (
         <>
             <div className="header-forum">
-                <br></br>
-                <br></br>
                 <SearchBar/>
-                    <br></br>
-
-
-                    <CreateNewThreadBtn/>
-                        <br></br>
-                        <br></br>
-
-
-                    </div>
+                <br></br>
+                <CreateNewThreadBtn/>
+            </div>
 
                     <div className="Latest-threads">
                         Latest threads

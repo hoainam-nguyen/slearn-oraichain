@@ -5,10 +5,12 @@ import Header from "components/headers/light.js";
 import Footer from "components/footers/FiveColumnWithInputForm.js";
 
 
-export default ()=> {
-    return  (<AnimationRevealPage>
-        <Header/>
-        <Forum></Forum>
-        <Footer/>
-    </AnimationRevealPage> )
+export default() => {
+    return (
+        <AnimationRevealPage>
+            <Header/>
+                <Forum></Forum>
+                <Footer/>
+            </AnimationRevealPage>
+    )
 }
