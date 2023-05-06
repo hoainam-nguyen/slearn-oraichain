@@ -21,7 +21,7 @@ const MainAdvance = () => {
         <>
             <AnimationRevealPage>
                 <IntroMainPage />
-                 
+
                 <StyleFeatureLeft 
                     heading={
                         <>
@@ -39,6 +39,7 @@ const MainAdvance = () => {
                     imageSrc="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=768&q=80"
                     imageDecoratorBlob={true}
                     primaryButtonText="Try Now!"
+                    primaryButtonUrl="/advance/summarize"
                     watchVideoButtonText="Watch tutorial video!"
                 />
                 <StyleFeatureRight 
@@ -59,6 +60,7 @@ const MainAdvance = () => {
                         </div>
                     }                    
                     primaryButtonText="Try Now!"
+                    primaryButtonUrl="/advance/explain"
                     imageSrc={"https://images.unsplash.com/photo-1460306855393-0410f61241c7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=768&q=80"}
                     imageDecoratorBlob={true}
                     imageDecoratorBlobCss={tw `left-1/2 -translate-x-1/2 md:w-32 md:h-32 opacity-25`}

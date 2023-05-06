@@ -39,7 +39,9 @@ const ThreadSummary = ({
     };
 
     const handleNotifyBtn = () => { // do something when the Notify button is clicked
-        toast('Notification has been enabled successfully!');
+        toast('Notification has been enabled successfully!', {
+            position: toast.POSITION.BOTTOM_RIGHT
+        });
     };
 
 

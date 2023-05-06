@@ -1,5 +1,5 @@
 .high-light-component {
-   margin-top: -5%; 
+    margin-top: -5%;
 }
 
 .introduce-content {
@@ -7,7 +7,7 @@
     margin-right: -13%;
 }
 
-.introduce-main-page{
+.introduce-main-page {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,4 +21,23 @@
 .introduce-main-page-content {
     margin-left: 20%;
     margin-right: 20%;
+    text-align: justify;
+}
+
+
+.output-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    /* margin-bottom: 3%; */
+    font-size: 28px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+
+.output-respone {
+    margin-left: 30%;
+    margin-right: 30%;
+    text-align: justify;
 }
