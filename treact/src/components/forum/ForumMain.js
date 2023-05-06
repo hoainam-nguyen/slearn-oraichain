@@ -48,7 +48,7 @@ const Forum = ({
                 <CreateNewThreadBtn/>
             </div>
 
-                    <div className="Latest-threads">
+                    <div className="latest-threads">
                         Latest threads
                     </div>
 
