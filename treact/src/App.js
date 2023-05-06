@@ -148,7 +148,7 @@ export default function App() {
             <Route path="/blog/post" element={<Blogpost/>}/>
             <Route path="/forum/" element={<Forum/>}/>
             <Route path="/forum/thread/:id" element={<Thread/>}/>
-            <Route path="/forum/crete-new-thread" element={<CreateThreadForum/>}/>
+            <Route path="/forum/create-new-thread" element={<CreateThreadForum/>}/>
             <Route path="/usernew" element={<Usernew/>}/>
             <Route path="/advance/" element={<Advance/>}/>
             <Route path="/advance/summarize" element={<AdvanceSummarize/>}/>

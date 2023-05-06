@@ -1,8 +1,8 @@
 import React from "react";
 
-import ThreadSummary from "./threadSumary";
+import ThreadSummary from "./ThreadSumary";
 import SearchBar from "./SearchBar";
-import CreateNewThreadBtn from "./createNewThreadBtn";
+import CreateNewThreadBtn from "./CreateNewThreadBtn";
 
 import "./styles.css"
 

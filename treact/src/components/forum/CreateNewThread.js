@@ -10,7 +10,7 @@ import FormComponent from "./InputTitle";
 
 
 
-const createNewThread = () => {
+const CreateNewThread = () => {
 
   return (
       <>
@@ -28,4 +28,4 @@ const createNewThread = () => {
   );
 };
 
-export default createNewThread;
+export default CreateNewThread;
