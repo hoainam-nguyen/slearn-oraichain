@@ -11,6 +11,9 @@ from src.const import const_map as CONST_MAP
 from src.const import config_map, resource_map
 from src.api_endpoint import add_api
 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 os.chdir(Path(__file__).parent)
 
@@ -45,7 +48,7 @@ if __name__ == "__main__":
     uvicorn.run(app,
                 port=CONFIG_MAP["app"]["port"],
                 host=CONFIG_MAP["app"]["host"],
-                log_level=None,
+                log_level="debug",
                 access_log=False)
 
     print(f"Run app at: {CONFIG_MAP['app']['host']}:{CONFIG_MAP['app']['port']}")

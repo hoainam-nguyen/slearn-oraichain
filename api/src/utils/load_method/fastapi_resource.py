@@ -7,9 +7,11 @@ from src.utils.load_method.load_utils import register_load_method
 @register_load_method
 def fastapi_app() -> FastAPI:
     app = FastAPI(
-        title="PB",
+        title="SLearn",
         description="FastAPI server for AI support SLearn web app.",
-        version="1.0.0"
+        version="1.0.0",
+        docs_url="/",
+        openapi_url='/openapi.json'
     )
 
     def custom_openapi():

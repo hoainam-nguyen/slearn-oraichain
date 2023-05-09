@@ -1,6 +1,12 @@
 fastapi
 uvicorn
 requests
-langchain=0.0.24
-pillow=9.5.0
-openai=0.10.5
+langchain==0.0.24
+pillow==9.5.0
+openai==0.10.5
+python-dotenv
+ultralytics
+pytorch_lightning==1.5.10
+lmdb==1.4.1
+timm==0.6.13
+nltk

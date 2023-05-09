@@ -6,5 +6,23 @@
     "bot_summarize": {
         "method": "load_bot_summarize",
         "args": {}
+    },
+    "bot_chat": {
+        "method": "load_bot_chat",
+        "args": {}
+    },
+    "text_detect": {
+        "method": "load_text_detection",
+        "args": {
+            "model_path": "resources/model_yolov8.onnx",
+            "threshold": 0.5
+        }
+    },
+    "text_recognize": {
+        "method": "load_text_recognize",
+        "args": {
+            "model_path": "resources/parseq_model.ckpt",
+            "threshold": 0.7
+        }
     }
 }

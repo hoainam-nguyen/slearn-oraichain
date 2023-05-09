@@ -1,17 +1,36 @@
 import re
 from typing import Any
 from langchain import LLMChain, OpenAI, PromptTemplate
+import openai 
 
 class BotChat():
     def __init__(self, temperature: float=0.0, verbose: bool=False, *args, **kwargs) -> None:
         # get chain
-        self.bot_chain = LLMChain(
-            llm=OpenAI(temperature=temperature, max_tokens=1000), 
-            verbose=verbose
-        )
+        # self.bot_chain = LLMChain(
+        #     llm=OpenAI(temperature=temperature, max_tokens=1000), 
+        #     verbose=verbose
+        
+        # )
+        
+        self.model = "text-davinci-003"
+        self.max_tokens = 1000
+        self.prompt_template = ""
+
+        
     def __call__(self, context:str,  *args: Any, **kwds: Any) -> Any:
         # TODO: Implement in here (namnh)
-        return 'Not implement'
+        
+        self.prompt = self.prompt_template + context
+        
+        resp = openai.Completion.create(
+            model=self.model,
+            prompt=self.prompt,
+            max_tokens=self.max_tokens,
+        )
+        
+        bot_resp = resp.choices[0].text 
+        return bot_resp
+
 
 class BotSummarize():
     def __init__(self, temperature: float=0.0, verbose: bool=False, *args, **kwargs) -> None:
