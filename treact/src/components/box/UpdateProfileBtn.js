@@ -3,23 +3,23 @@ import {useNavigate} from 'react-router-dom';
 import './styles.css'
 
 
-const CreateNewThreadBtn = () => {
+const UpdateProfileBtn = () => {
     const navigate = useNavigate();
 
     const handleThreadClick = () => {
-        navigate('/forum/create-new-thread');
+        navigate('/user/update-user-profile');
     };
 
     return (
         <>
-            <div className="create-thread-btn">
-                <span>Haven't found a way to solve the problem?
+            <div className="update-profile-btn">
+                <span>You want to update profile.
                 </span>
                 <span className="click-here"
-                    onClick={handleThreadClick}>Create a new thread now!</span>
+                    onClick={handleThreadClick}>Let's go now!</span>
             </div>
         </>
     );
 }
 
-export default CreateNewThreadBtn;
+export default UpdateProfileBtn;

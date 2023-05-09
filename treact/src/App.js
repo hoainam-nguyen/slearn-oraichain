@@ -113,6 +113,7 @@ const Pricing = React.lazy(() => import ("./pages/Pricing"))
 const Blog = React.lazy(() => import ("./pages/BlogIndex"))
 const About = React.lazy(() => import ("./pages/AboutUs"))
 const User = React.lazy(() => import ("./pages/User"))
+const UpdateUserProfile = React.lazy(() => import ("./pages/UpdateUserProfile"))
 const Blogpost = React.lazy(() => import ("./pages/Blogpost"))
 const Forum = React.lazy(() => import ("./pages/Forum"))
 const Thread = React.lazy(() => import ("./pages/ThreadForum"))
@@ -159,6 +160,8 @@ export default function App() {
                             element={<About/>}/>
                         <Route path="/user"
                             element={<User/>}/>
+                        <Route path="/user/update-user-profile"
+                            element={<UpdateUserProfile/>}/>
                         <Route path="/chatbot/:type/:name"
                             element={<BotRenderer/>}/>
                         <Route path="/blog/post"
