@@ -1,8 +1,8 @@
 import React from "react";
 
-import ThreadSummary from "./threadSumary";
+import ThreadSummary from "./ThreadSumary";
 import SearchBar from "./SearchBar";
-import CreateNewThreadBtn from "./createNewThreadBtn";
+import CreateNewThreadBtn from "./CreateNewThreadBtn";
 
 import "./styles.css"
 
@@ -43,20 +43,12 @@ const Forum = ({
     return (
         <>
             <div className="header-forum">
-                <br></br>
-                <br></br>
                 <SearchBar/>
-                    <br></br>
+                <br></br>
+                <CreateNewThreadBtn/>
+            </div>
 
-
-                    <CreateNewThreadBtn/>
-                        <br></br>
-                        <br></br>
-
-
-                    </div>
-
-                    <div className="Latest-threads">
+                    <div className="latest-threads">
                         Latest threads
                     </div>
 

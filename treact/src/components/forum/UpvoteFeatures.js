@@ -4,27 +4,27 @@ import tw from "twin.macro";
 import "./styles.css"
 import {AppContext} from "../../store";
 
-import {ReactComponent as HeartSolid} from "images/heart-solid.svg";
+import {ReactComponent as UpvoteSolid} from "images/chevron-up-solid.svg";
 
 
-const HeartIcon = tw(HeartSolid)`top-0 left-0  w-5 fill-current text-red-500`;
+const UpvoteIcon = tw(UpvoteSolid)`top-0 left-0  w-5 fill-current text-green-500`;
 
 const InteractButton = tw.button `
   bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-blue-500`;
 
 
-const LikeFeatures = ({id}) => {
+const UpvoteFeatures = ({id}) => {
     const data = useContext(AppContext)
-    const [likenumber, setLikenumber] = React.useState(0)
-    const temp = data.like.status
+    const [upvotenumber, setUpvotenumber] = React.useState(0)
+    const temp = data.upvote.status
     temp[id] = {
-        value: likenumber,
-        set: setLikenumber
+        value: upvotenumber,
+        set: setUpvotenumber
     }
-    data.like.set(temp)
-    const onClickLike = (e) => {
+    data.upvote.set(temp)
+    const onClickUpvote = (e) => {
         e.preventDefault()
-        data.like.status[id].set(data.like.status[id].value + 1)
+        data.upvote.status[id].set(data.upvote.status[id].value + 1)
     }
     return (
         <div>
@@ -35,26 +35,26 @@ const LikeFeatures = ({id}) => {
                     <span style={
                         {display: "flex"}
                     }>
-                        <HeartIcon/>
+                        <UpvoteIcon/>
                         <span style={
                             {margin: "0 5px"}
                         }>
                             {
-                            data.like.status[id].value
+                            data.upvote.status[id].value
                         } </span>
                     </span>
 
                     <div> {
-                        data.like.status[id].value <= 1 ? (
-                            <span>Like</span>
+                        data.upvote.status[id].value <= 1 ? (
+                            <span>Upvote</span>
                         ) : (
-                            <span>Likes</span>
+                            <span>Upvotes</span>
                         )
                     } </div>
                 </span>
             </div>
-            <div className="like-button">
-                <InteractButton onClick={onClickLike}>Like
+            <div className="up-down-button">
+                <InteractButton onClick={onClickUpvote}>Upvote
                 </InteractButton>
             </div>
         </div>
@@ -63,4 +63,4 @@ const LikeFeatures = ({id}) => {
 }
 
 
-export default LikeFeatures;
+export default UpvoteFeatures;

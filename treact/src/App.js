@@ -1,6 +1,7 @@
-import React, {  Suspense } from "react";
+import React, {Suspense} from "react";
 import GlobalStyles from 'styles/GlobalStyles';
-import { css } from "styled-components/macro"; //eslint-disable-line
+import {css} from "styled-components/macro";
+// eslint-disable-line
 
 /*
  * This is the entry point component of this project. You can change the below exported default App component to any of
@@ -100,7 +101,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 // import TermsOfServicePage from "pages/TermsOfService.js";
 // import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import BotRenderer from "BotRenderer";
 // import ThreadDetail from "./components/forum/ThreadDetail";
 
@@ -116,42 +117,72 @@ const Blogpost = React.lazy(() => import ("./pages/Blogpost"))
 const Forum = React.lazy(() => import ("./pages/Forum"))
 const Thread = React.lazy(() => import ("./pages/ThreadForum"))
 const CreateThreadForum = React.lazy(() => import ("./pages/CreateThreadForum"))
+const Advance = React.lazy(() => import ("./pages/Advance"))
+const AdvanceSummarize = React.lazy(() => import ("./pages/AdvanceSummarize"))
+const AdvanceExplain = React.lazy(() => import ("./pages/AdvanceExplain"))
 
 // const Thread = React.lazy(() => import ("./pages/Thread"))
 const Usernew = React.lazy(() => import ("./pages/usernew"))
 
 
 export default function App() {
-  // If you want to disable the animation just use the disabled `prop` like below on your page's component
-  // return <AnimationRevealPage disabled>xxxxxxxxxx</AnimationRevealPage>;
+    // If you want to disable the animation just use the disabled `prop` like below on your page's component
+    // return <AnimationRevealPage disabled>xxxxxxxxxx</AnimationRevealPage>;
 
-  return (
-    <>
-      <GlobalStyles />
-      <Router>
-        <Suspense fallback={<div style={{textAlignLast:'center', 
-                              position: 'absolute', top:'50%', left:'45%',
-                               fontSize:'36px',
-                               animation:"spin 0.5s linear infinite"}}>Loading...</div>}>
-          <Routes>
-            <Route path="/" element={<RestaurantLandingPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/blog" element={<Blog/>}/>
-            <Route path="/about" element={<About/>}/>
-            <Route path="/user" element={<User/>}/>
-            <Route path="/chatbot/:type/:name" element={<BotRenderer/>}/>
-            <Route path="/blog/post" element={<Blogpost/>}/>
-            <Route path="/forum/" element={<Forum/>}/>
-            <Route path="/forum/thread/:id" element={<Thread/>}/>
-            <Route path="/forum/crete-new-thread" element={<CreateThreadForum/>}/>
-            <Route path="/usernew" element={<Usernew/>}/>
-          </Routes>
-        </Suspense>
-      </Router>
-    </>
-  );
+    return (
+        <>
+            <GlobalStyles/>
+            <Router>
+                <Suspense fallback={<div
+                        style={
+{
+    textAlignLast: 'center',
+    position: 'absolute',
+    top: '50%',
+    left: '45%',
+    fontSize: '36px',
+    animation: "spin 0.5s linear infinite"
+}}>
+                    Loading...</div>}>
+                    <Routes>
+                        <Route path="/"
+                            element={<RestaurantLandingPage/>}/>
+                        <Route path="/login"
+                            element={<Login/>}/>
+                        <Route path="/signup"
+                            element={<Signup/>}/>
+                        <Route path="/pricing"
+                            element={<Pricing/>}/>
+                        <Route path="/blog"
+                            element={<Blog/>}/>
+                        <Route path="/about"
+                            element={<About/>}/>
+                        <Route path="/user"
+                            element={<User/>}/>
+                        <Route path="/chatbot/:type/:name"
+                            element={<BotRenderer/>}/>
+                        <Route path="/blog/post"
+                            element={<Blogpost/>}/>
+                        <Route path="/forum/"
+                            element={<Forum/>}/>
+                        <Route path="/forum/thread/:id"
+                            element={<Thread/>}/>
+                        <Route path="/forum/create-new-thread"
+                            element={<CreateThreadForum/>}/>
+                        <Route path="/usernew"
+                            element={<Usernew/>}/>
+                        <Route path="/advance/"
+                            element={<Advance/>}/>
+                        <Route path="/advance/summarize"
+                            element={<AdvanceSummarize/>}/>
+                        <Route path="/advance/explain"
+                            element={<AdvanceExplain/>}/>
+
+                    </Routes>
+                </Suspense>
+            </Router>
+        </>
+    );
 }
 
 // export default EventLandingPage;

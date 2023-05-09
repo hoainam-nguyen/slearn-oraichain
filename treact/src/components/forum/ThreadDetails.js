@@ -1,11 +1,9 @@
 import React from "react";
-// import tw from "twin.macro";
-// import Thread from "./thread";
-import Question from "./question";
-import Answer from "./othersUsesAnswer";
-import MyAnswer from "./myAnswer";
+import ThreadSummary from "./ThreadSumary";
+import Answer from "./OthersUserAnswer";
+import MyAnswer from "./MyAnswer";
 import SearchBar from "./SearchBar";
-import CreateNewThreadBtn from "./createNewThreadBtn";
+import CreateNewThreadBtn from "./CreateNewThreadBtn";
 
 import "./styles.css"
 
@@ -41,28 +39,14 @@ const ThreadInfo = () => {
 
     return (
         <>
-        <div className="header-forum">
-                <br></br>
-                <br></br>
+            <div className="header-forum">
                 <SearchBar/>
-                    <br></br>
-
-
-                    <CreateNewThreadBtn/>
-                        <br></br>
-                        <br></br>
-
-
-                    </div>
-        
-
-            <br></br>
-            <br></br>
-
-            <br></br>
+                <br></br>
+                <CreateNewThreadBtn/>
+            </div>
 
             <div className="question">
-                <Question id={
+                <ThreadSummary id={
                         question_fake_data.id
                     }
                     title={
@@ -114,14 +98,6 @@ const ThreadInfo = () => {
             <div className="my-answer">
                 <MyAnswer userAvatar="https://i.imgur.com/8Km9tLL.png"/>
             </div>
-
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-
         </>
     );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
-import Thread from "components/forum/ThreadDetails.js";
+import Forum from "components/advance/ExplainFeatures";
 import Header from "components/headers/light.js";
 import Footer from "components/footers/FiveColumnWithInputForm.js";
 
@@ -8,7 +8,7 @@ import Footer from "components/footers/FiveColumnWithInputForm.js";
 export default ()=> {
     return  (<AnimationRevealPage>
         <Header/>
-        <Thread></Thread>
+        <Forum></Forum>
         <Footer/>
     </AnimationRevealPage> )
 }
