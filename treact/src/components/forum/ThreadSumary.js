@@ -7,8 +7,9 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import "./styles.css"
-import LikeFeatures from "./LikeFeatures";
+// import LikeFeatures from "./LikeFeatures";
 import ViewFeatures from "./ViewFeatures";
+import {ReactComponent as HeartSolid} from "images/heart-solid.svg";
 
 
 const ThreadContainer = tw.div `bg-white rounded-md shadow-md p-4 mt-4`;
@@ -21,16 +22,31 @@ const InteractButton = tw.button `bg-blue-500 hover:bg-blue-700 text-white font-
 const TopicHagtagButton = tw.button `bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-green-500`;
 
 
+// like component
+const HeartIcon = tw(HeartSolid)`top-0 left-0  w-5 fill-current text-red-500`;
+const LikeButton = tw.button `bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-blue-500`;
+
+
 const ThreadSummary = ({
     id,
     title,
-    topic,
     content,
     author,
     datePost,
     replies,
-    views
+    likes,
+    views, 
+    onLike
 }) => {
+
+    const [likenumber, setLikenumber] = React.useState(likes)
+
+    const onClickLike = (e) => {
+        e.preventDefault()
+        const newLikes = Number(likes) + 1;
+        setLikenumber(newLikes.toString());
+        onLike(id, newLikes.toString());
+    }
 
     const navigate = useNavigate();
 
@@ -39,9 +55,7 @@ const ThreadSummary = ({
     };
 
     const handleNotifyBtn = () => { // do something when the Notify button is clicked
-        toast('Notification has been enabled successfully!', {
-            position: toast.POSITION.BOTTOM_RIGHT
-        });
+        toast('Notification has been enabled successfully!', {position: toast.POSITION.BOTTOM_RIGHT});
     };
 
 
@@ -51,23 +65,54 @@ const ThreadSummary = ({
                 <div className="sub-thread-sumary"
                     onClick={handleThreadClick}>
                     <ThreadTitle>{title}</ThreadTitle>
-                    <TopicHagtagButton>{topic}</TopicHagtagButton>
+                    {/* <TopicHagtagButton>{topic}</TopicHagtagButton> */}
                     <ThreadContent>{content}</ThreadContent>
                     <ThreadAuthor>Start by: {author}</ThreadAuthor>
                     <ThreadDate>At: {datePost}</ThreadDate>
                 </div>
 
                 <ThreadStats>
-                    <span>{replies}replies</span>
+                    <span>{replies}
+                        replies</span>
                 </ThreadStats>
                 <br></br>
 
-                <ThreadStats>
-                    <LikeFeatures id={id}/>
+                <ThreadStats> {/* <LikeFeatures likes={likes}/> */}
+                    {/* Like */}
+                    <div>
+                        <div>
+                            <span style={
+                                {display: "flex"}
+                            }>
+                                <span style={
+                                    {display: "flex"}
+                                }>
+                                    <HeartIcon/>
+                                    <span style={
+                                        {margin: "0 5px"}
+                                    }>
+                                        {likenumber} </span>
+                                </span>
+
+                                <div> {
+                                    likenumber <= 1 ? (
+                                        <span>Like</span>
+                                    ) : (
+                                        <span>Likes</span>
+                                    )
+                                } </div>
+                            </span>
+                        </div>
+                        <div className="like-button">
+                            <LikeButton onClick={onClickLike}>Like</LikeButton>
+                        </div>
+                    </div>
+
+                    {/* View */}
                     <ViewFeatures view_num={views}/>
                     <InteractButton onClick={handleNotifyBtn}>Turn on Notify</InteractButton>
                 </ThreadStats>
-                
+
                 <ToastContainer/>
 
             </ThreadContainer>
