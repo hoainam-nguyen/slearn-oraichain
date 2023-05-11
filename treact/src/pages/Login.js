@@ -14,6 +14,7 @@ import { AppContext } from "store";
 import Database from "../Firebase.js";
 import { ref, onValue, child, get} from "firebase/database";
 import { SigningCosmosClient } from "@cosmjs/launchpad";
+import axios from "axios";
 
 
 const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
@@ -141,10 +142,34 @@ export default ({
       // console.log(accounts)
       // console.log(cosmJS)
       const name = await window.keplr.getKey(chainId)
-
-      data.user.set(name.name)
-      data.signin.set(true)
-      history("/")
+      // console.log(name)
+      const datareq = {
+        name: name.name,
+        bech32Address:name.bech32Address,
+        algo: name.algo
+      }
+      console.log(datareq)
+      axios.post("http://localhost:3001/user/getuser", datareq
+      ).then((response) => {
+        console.log(response)
+        if (response.data == "User is not existed") {
+          alert("Bạn chưa đăng kí")
+          // data.user.set(name.name)
+          // data.signin.set(true)
+          history("/signup")
+        }
+        else{
+          data.user.set(name.name)
+          data.signin.set(true)
+          history("/")
+        }
+        
+      }).catch((err) => {
+        console.log("ERROR", err)
+      })
+      // data.user.set(name.name)
+      // data.signin.set(true)
+      // history("/")
     }
   }
 

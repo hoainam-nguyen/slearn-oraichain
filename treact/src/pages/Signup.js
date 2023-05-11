@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import { Container as ContainerBase } from "components/misc/Layouts";
 import tw from "twin.macro";
@@ -13,6 +13,8 @@ import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus
 import Database from "../Firebase";
 import { ref, set, onValue } from "firebase/database";
 import { AppContext } from "store";
+import { SigningCosmosClient } from "@cosmjs/launchpad";
+import axios from "axios";
 
 const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
@@ -79,28 +81,86 @@ export default ({
   privacyPolicyUrl = "#",
   signInUrl = "#"
 }) => {
-  const [ password, setPassword ] = useState('')
-  const [ email, setEmail ] = useState('')
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
   const data = useContext(AppContext)
   const history = useNavigate()
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault()
-    const starCountRef = ref(Database, 'users/' + email.split('.')[0]);
-    let flag = false
-    onValue(starCountRef, (snapshot) => {
-      if (!snapshot.exists()) {
-        set(ref(Database, 'users/' + email.split('.')[0]), {
-          email: email,
-          password: password,
-        });
-        flag = true;
-        data.user.set(email.split('.')[0])
-        data.signin.set(true)
-        history('/')
+    // const starCountRef = ref(Database, 'users/' + email.split('.')[0]);
+    // let flag = false
+    // onValue(starCountRef, (snapshot) => {
+    //   if (!snapshot.exists()) {
+    //     set(ref(Database, 'users/' + email.split('.')[0]), {
+    //       email: email,
+    //       password: password,
+    //     });
+    //     flag = true;
+    //     data.user.set(email.split('.')[0])
+    //     data.signin.set(true)
+    //     history('/')
+    //   }
+    // })
+    // if (flag) {
+    //   alert(email + " has already")
+    // }
+    if (!window.keplr) {
+      alert("Please install keplr extension");
+    }
+    else {
+      const chainId = "cosmoshub-4";
+
+
+      // Enabling before using the Keplr is recommended.
+      // This method will ask the user whether to allow access if they haven't visited this website.
+      // Also, it will request that the user unlock the wallet if the wallet is locked.
+      await window.keplr.enable(chainId);
+
+      const offlineSigner = window.keplr.getOfflineSigner(chainId);
+
+      // You can get the address/public keys by `getAccounts` method.
+      // It can return the array of address/public key.
+      // But, currently, Keplr extension manages only one address/public key pair.
+      // XXX: This line is needed to set the sender address for SigningCosmosClient.
+      const accounts = await offlineSigner.getAccounts();
+
+      // Initialize the gaia api with the offline signer that is injected by Keplr extension.
+      const cosmJS = new SigningCosmosClient(
+        "https://lcd-cosmoshub.keplr.app",
+        accounts[0].address,
+        offlineSigner,
+      );
+      // console.log(accounts)
+      // console.log(cosmJS)
+      const name = await window.keplr.getKey(chainId)
+      // console.log(name)
+      const datareq = {
+        name: name.name,
+        bech32Address: name.bech32Address,
+        algo: name.algo
       }
-    })
-    if (flag) {
-      alert(email + " has already")
+      console.log(datareq)
+      axios.post("http://localhost:3001/user", datareq
+      ).then((response) => {
+        console.log(response)
+        if (response.data.message == "Folder existed") {
+          alert("Bạn đã đăng kí rồi")
+          data.user.set(name.name)
+          data.signin.set(true)
+          history("/login")
+        }
+        else{
+          alert("Bạn kí thành công")
+          data.user.set(name.name)
+          data.signin.set(true)
+          history("/")
+        }
+      }).catch((err) => {
+        console.log("ERROR", err)
+      })
+      // data.user.set(name.name)
+      // data.signin.set(true)
+      // history("/")
     }
 
   }
@@ -129,8 +189,8 @@ export default ({
                 <DividerText>Or Sign up with your e-mail</DividerText>
               </DividerTextContainer>
               <Form onSubmit={onSubmit}>
-                <Input type="email" placeholder="Email" value={email} onChange={(e)=> setEmail(e.target.value)} />
-                <Input type="password" placeholder="Password" value={password} onChange={(e)=> setPassword(e.target.value)} />
+                <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <SubmitButton type="submit">
                   <SubmitButtonIcon className="icon" />
                   <span className="text">{submitButtonText}</span>
