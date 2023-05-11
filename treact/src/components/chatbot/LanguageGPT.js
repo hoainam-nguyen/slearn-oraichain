@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import tw, {styled} from 'twin.macro';
+import tw, { styled } from 'twin.macro';
 
 import Header from "../headers/light.js";
 import Footer from "../footers/FiveColumnWithInputForm.js";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
+import fetch from 'node-fetch';
+// import { Spinner } from 'react-bootstrap';
 
 export const ChatbotContainer = styled.div`
   ${tw`rounded-t-lg
@@ -63,10 +65,24 @@ const TextRep = tw.div`
     m-2
     p-2
 `
+function postData(url = '', data = {}) {
+  return fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => response.json());
+}
 
 const Chatbot = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const containerRef = useRef(null);
 
   const handleChange = (e) => {
@@ -78,11 +94,24 @@ const Chatbot = () => {
     container.scrollTo(0, container.scrollHeight);
   }, [messages]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (message !== '') {
-      setMessages([...messages, { sender: 'user', text: message },{sender:'bot', text:'Nguyễn Minh Lý là sinh viên UIT, độc thận vui tính ngày ngày thả thính :))'}]);
+      setMessages([...messages, { sender: 'user', text: message }, { sender: 'bot', text: "Đang suy nghĩ..." }])
       setMessage('');
+      setIsLoading(true);
+
+      const data = await postData('https://cors-anywhere.herokuapp.com/https://aiclub.uit.edu.vn/namnh/bot/chat', { context: message })
+      // console.log(data)
+      if (data.msg == 'Finish!' && data.status_code == 200)
+      {
+        setMessages([...messages, { sender: 'user', text: message }, { sender: 'bot', text: data.content }]);
+      }
+      else{
+        setMessages([...messages, { sender: 'user', text: message }, { sender: 'bot', text: `ERROR: ${data}` }]);
+      }
+        setIsLoading(false);
+      // console.log(message);
       // Call API to send message and get response
       // Add response to messages state
     }
@@ -90,32 +119,32 @@ const Chatbot = () => {
 
   return (
     <AnimationRevealPage>
-        <Header/>
-        <ChatbotContainer>
-            <ChatHeader>
-                <ChatTitle>BotQuizz</ChatTitle>
-            </ChatHeader>
-            <ChatBody ref={containerRef}>
-                {messages.map((message, index) => (
-                <div key={index}>
-                    {message.sender === 'user' ? (
-                    <TextReq>
-                        <span>You:</span> {message.text}
-                    </TextReq>
-                    ) : (
-                    <TextRep>
-                        <span>Chatbot:</span> {message.text}
-                    </TextRep>
-                    )}
-                </div>
-                ))}
-            </ChatBody>
-            <form onSubmit={handleSubmit}>
-                <ChatInput type="text" value={message} placeholder="Write question here ..." onChange={handleChange} />
-                <ChatButton type="submit">Send</ChatButton>
-            </form>
-        </ChatbotContainer>
-        <Footer/>
+      <Header />
+      <ChatbotContainer>
+        <ChatHeader>
+          <ChatTitle>BotQuizz</ChatTitle>
+        </ChatHeader>
+        <ChatBody ref={containerRef}>
+          {messages.map((message, index) => (
+            <div key={index}>
+              {message.sender === 'user' ? (
+                <TextReq>
+                  <span>You:</span> {message.text}
+                </TextReq>
+              ) : (
+                <TextRep>
+                  <span>Chatbot:</span> {message.text}
+                </TextRep>
+              )}
+            </div>
+          ))}
+        </ChatBody>
+        <form onSubmit={handleSubmit}>
+          <ChatInput type="text" value={message} placeholder="Write question here ..." onChange={handleChange} />
+          <ChatButton type="submit">Send</ChatButton>
+        </form>
+      </ChatbotContainer>
+      <Footer />
     </AnimationRevealPage>
   )
 }
