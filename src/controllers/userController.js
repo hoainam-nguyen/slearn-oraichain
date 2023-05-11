@@ -6,6 +6,7 @@ const DATA = require('../pkg/const')
 const Eueno = require('@eueno/lib-node')
 const crypto = require('crypto');
 const https = require('https');
+const axios = require('axios');
 
 function encode(num) {
   const bytes = Buffer.allocUnsafe(8);
@@ -14,18 +15,8 @@ function encode(num) {
   return hash.toString('base64').replace(/[+/]/g, '_').replace(/=/g, '');
 }
 async function readUrl(url) {
-  https.get(url, (res) => {
-    let data = '';
-    res.on('data', (chunk) => {
-      data += chunk;
-    });
-    res.on('end', () => {
-      console.log(data);
-      return data;
-    });
-  }).on('error', (err) => {
-    console.error(err);
-  });
+  const info = await axios.get(url)
+  return info.data
 }
 
 const userController = {
@@ -54,17 +45,10 @@ const userController = {
           projectKey: DATA.projectKey,
         }
       )
-      // console.log(foder_new )
       // nếu như foder đã tồn tại thì báo Foder đã tồn tại
       if (foder_new.message == "Folder existed") {
-        return res.status(foder_new.code).json(foder_new)
+        return res.status(200).json(foder_new)
       }
-
-      //creaet file and upload
-      // await fs.writeFileSync('./public/info.json', JSON.stringify(data), 'utf-8')
-      // const file = await fs.readFileSync('./public/info.json')
-      // await fs.unlinkSync('./public/info.json')
-      // console.log(file)
       // Upload 1 file chứa thông tin của user lên eueno
       const file_upload = await eueno.upload(
         Buffer.from(JSON.stringify(data)),
@@ -110,13 +94,25 @@ const userController = {
         endpoint: 'https://v2-developers.eueno.io',
       });
       // read foder of user
+      // console.log(data);
       const foder = await eueno.getObjectLists({
         projectKey: DATA.projectKey,
         projectId: DATA.projectId,
         path: `user/${data.bech32Address}`
       })
-      console.log(foder);
-      res.status(200).json(foder);
+      if(!foder.data.files.length)
+      {
+        return res.status(200).json("User is not existed");
+      }
+      else{
+        // console.log(foder);
+        const url = foder.data.files[0].url
+        const info = await readUrl(url)
+        // console.log(info)
+
+        return res.status(200).json(info)
+      }
+ 
     }catch(error){
       console.log("ERROR",error)
     }
