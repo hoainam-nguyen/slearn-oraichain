@@ -16,7 +16,7 @@ import { ReactComponent as UserIcon } from "images/user-solid.svg";
 
 const Header = tw.header`
   flex justify-between items-center
-  max-w-screen-xl mx-auto
+  mx-auto fixed bg-white z-10 w-screen h-20 top-0 left-0 p-10
 `;
 
 export const NavLinks = tw.div`flex`;
