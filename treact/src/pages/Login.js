@@ -13,6 +13,9 @@ import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg
 import { AppContext } from "store";
 import Database from "../Firebase.js";
 import { ref, onValue, child, get} from "firebase/database";
+import { SigningCosmosClient } from "@cosmjs/launchpad";
+import axios from "axios";
+
 
 const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
@@ -89,26 +92,85 @@ export default ({
     setPassword(e.target.value)
   }
 
-  const onClickSignup = (event) => {
+  const onClickSignup = async(event) => {
     event.preventDefault()
-    const dataRef = ref(Database)
-    get(child(dataRef, 'users/' + email.split(".")[0])).then((snapshot) => {
-      if(snapshot.exists()) {
-        const data_val = snapshot.val()
-        if (data_val.email === email && data_val.password === password) {
-          data.user.set(email)
+    // const dataRef = ref(Database)
+    // get(child(dataRef, 'users/' + email.split(".")[0])).then((snapshot) => {
+    //   if(snapshot.exists()) {
+    //     const data_val = snapshot.val()
+    //     if (data_val.email === email && data_val.password === password) {
+    //       data.user.set(email)
+    //       data.signin.set(true)
+    //       history("/")
+    //     }
+    //     else
+    //     {
+    //       alert("Please enter your email or password")
+    //     }
+    //   }
+    //   else {
+    //     alert('Account is not available')
+    //   }
+    // })
+    // console.log("Thái")
+    if (!window.keplr)
+    {
+      alert("Please install keplr extension");
+    }
+    else{
+      const chainId = "cosmoshub-4";
+
+      // Enabling before using the Keplr is recommended.
+      // This method will ask the user whether to allow access if they haven't visited this website.
+      // Also, it will request that the user unlock the wallet if the wallet is locked.
+      await window.keplr.enable(chainId);
+  
+      const offlineSigner = window.keplr.getOfflineSigner(chainId);
+  
+      // You can get the address/public keys by `getAccounts` method.
+      // It can return the array of address/public key.
+      // But, currently, Keplr extension manages only one address/public key pair.
+      // XXX: This line is needed to set the sender address for SigningCosmosClient.
+      const accounts = await offlineSigner.getAccounts();
+  
+      // Initialize the gaia api with the offline signer that is injected by Keplr extension.
+      const cosmJS = new SigningCosmosClient(
+          "https://lcd-cosmoshub.keplr.app",
+          accounts[0].address,
+          offlineSigner,
+      );
+      // console.log(accounts)
+      // console.log(cosmJS)
+      const name = await window.keplr.getKey(chainId)
+      // console.log(name)
+      const datareq = {
+        name: name.name,
+        bech32Address:name.bech32Address,
+        algo: name.algo
+      }
+      console.log(datareq)
+      axios.post("http://localhost:3001/user/getuser", datareq
+      ).then((response) => {
+        console.log(response)
+        if (response.data == "User is not existed") {
+          alert("Bạn chưa đăng kí")
+          // data.user.set(name.name)
+          // data.signin.set(true)
+          history("/signup")
+        }
+        else{
+          data.user.set(name.name)
           data.signin.set(true)
           history("/")
         }
-        else
-        {
-          alert("Please enter your email or password")
-        }
-      }
-      else {
-        alert('Account is not available')
-      }
-    })
+        
+      }).catch((err) => {
+        console.log("ERROR", err)
+      })
+      // data.user.set(name.name)
+      // data.signin.set(true)
+      // history("/")
+    }
   }
 
   return (<AnimationRevealPage>
