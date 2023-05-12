@@ -2,64 +2,70 @@ const DATA = require('../pkg/const')
 const Eueno = require('@eueno/lib-node')
 const axios = require('axios');
 
+
 async function readUrl(url) {
   const info = await axios.get(url)
   return info.data
 }
 
+
 const userController = {
+  checkUser: async(req, res, next) => {
+    // Kiểm tra xem user đã có hoặc không tồn tại trong eueno
+    // user id
+    const userID = req.query.id 
+
+    // define eueno client
+    const eueno = new Eueno({
+      endpoint: 'https://v2-developers.eueno.io',
+    });
+
+    // request
+    const resp = await eueno.getObjectLists({
+      projectKey: DATA.projectKey,
+      projectId: DATA.projectId,
+      path: `user/`
+    })
+    
+    const folders = resp.data.folders;
+
+    // Check
+    if (folders.includes(userID)) {
+      return res.status(200).json({'msg': 'Finish!', 'is_exist': true})
+    } else {
+      return res.status(200).json({'msg': 'Finish!', 'is_exist': false})
+    }
+  },
+
   createUser: async (req, res, next) => {
     try {
+
       // Lấy thông tin gửi từ client
       const data = {
-        name: req.body.name,
-        algo: req.body.algo,
-        bech32Address: req.body.bech32Address,
-        email: req.body.email,
-        phone: req.body.phone,
-        nickname: req.body.nickname,
-        addresss: req.body.Addresss,
-        age: req.body.age,
-        bio: req.body.bio,
-        key: req.body.key
+        id: req.body.id,
+        owallet_response: req.body.owallet_response,
+        metadata: req.body.metadata,
+        user_resource: req.body.user_resource,
+        config: req.body.config
       }
 
+      // Define eueno 
       const eueno = new Eueno({
         endpoint: 'https://v2-developers.eueno.io',
       });
-      // Tạo 1 foder mới trên eueno với tên foder là bech32Address
-      const foder_new = await eueno.createFolder(
+
+
+      const _ = await eueno.createFolder(
         {
           projectId: DATA.projectId,
-          path: `user/${data.bech32Address}`,
+          path: `user/${data.id}/`,
           projectKey: DATA.projectKey,
         }
       )
-      // nếu như foder đã tồn tại
-      if (foder_new.message == "Folder existed") {
-
-        // Check xem trong foder đó đã có file info.json chưa:
-        // 1. Đọc foder của user
-        // 2. Nếu có file info.json thì trả về "User is existed"
-
-        // Bước 1
-        const foder = await eueno.getObjectLists({
-          projectKey: DATA.projectKey,
-          projectId: DATA.projectId,
-          path: `user/${data.bech32Address}`
-        })
-        // Bước 2
-        console.log(foder)
-        if (foder.data.files.length) {
-          return res.status(200).json("User is existed")
-        }
-      }
-      // chuyển data clien gửi về dạng file
-      const file = Buffer.from(JSON.stringify(data))
-      // console.log(file);
-      // Upload 1 file chứa thông tin của user lên eueno với path là : path: `user/${data.bech32Address}`,
+      // chuyển data client gửi về dạng file
+      const file_obj = Buffer.from(JSON.stringify(data))
       try {
-        const file_upload = await eueno.upload(file,
+        const file_upload = await eueno.upload(file_obj,
           {
             projectKey: DATA.projectKey,
             key: {
@@ -68,7 +74,7 @@ const userController = {
           },
           {
             projectId: DATA.projectId,
-            path: `user/${data.bech32Address}`,
+            path: `user/${data.id}`,
             filename: 'info.json',
             contentLength: 12313,
             contentType: 'application/json',
@@ -76,7 +82,7 @@ const userController = {
             keepPath: false,
           },
         )
-        // console.log(file_upload)
+        console.log(file_upload)
         return res.status(200).json(file_upload)
       }
       catch (error) {
@@ -89,46 +95,36 @@ const userController = {
       return res.status(500).json({ error })
     }
   },
+
+
   getUser: async (req, res, next) => {
     try {
-      // Lấy thông tin từ client
-      const data = {
-        name: req.body.name,
-        algo: req.body.algo,
-        bech32Address: req.body.bech32Address,
-        email: req.body.email,
-        phone: req.body.phone,
-        nickname: req.body.nickname,
-        addresss: req.body.Addresss,
-        age: req.body.age,
-        bio: req.body.bio,
-      }
+
+      const userID = req.query.id 
+
       // 
       const eueno = new Eueno({
         endpoint: 'https://v2-developers.eueno.io',
       });
-      // console.log(data);
-      try {
 
-        // Đọc foder của user
-        const foder = await eueno.getObjectLists({
+      try {
+        const resp_obj = await eueno.getObjectLists({
           projectKey: DATA.projectKey,
           projectId: DATA.projectId,
-          path: `user/${data.bech32Address}`
+          path: `user/${userID}`
         })
-        if (!foder.data.files.length) {
-          return res.status(200).json("User is not existed");
+
+        const url = resp_obj.data.files[0].url
+        resp_obj.data.files[0].name
+
+        
+        for(let i=0; i<resp_obj.data.files.length;i++) {
+          if (resp_obj.data.files[i].name === 'info.json') {
+            const info = await readUrl(resp_obj.data.files[i].url)
+            return res.status(200).json({'msg':'Finish.', 'data':info})
+          }
         }
-        else {
-          // console.log(foder);
-          // sau khi đọc foder thì nó sẽ trả về list các foder và list các file trong foder đó
-          // bởi file trong foder chỉ có 1 file
-          // và thông chi tiết file có url để đọc thông tin file đó
-          const url = foder.data.files[0].url
-          const info = await readUrl(url)
-          console.log(info)
-          return res.status(200).json(info)
-        }
+
       }
       catch (error) {
         console.log("ERROR", error)
@@ -139,36 +135,38 @@ const userController = {
       return res.status(500).json(error)
     }
   },
+
+
   updateUser: async (req, res, next) => {
     // lấy data từ client
     const data = {
-      name: req.body.name,
-      algo: req.body.algo,
-      bech32Address: req.body.bech32Address,
-      email: req.body.email,
-      phone: req.body.phone,
-      nickname: req.body.nickname,
-      addresss: req.body.Addresss,
-      age: req.body.age,
-      bio: req.body.bio,
-      key: req.body.key
+      id: req.body.id,
+      owallet_response: req.body.owallet_response,
+      metadata: req.body.metadata,
+      user_resource: req.body.user_resource,
+      config: req.body.config
     }
+
     const eueno = new Eueno({
       endpoint: 'https://v2-developers.eueno.io',
     });
-    // đọc foder của user
-    const foder = await eueno.getObjectLists({
+
+    const resp_obj = await eueno.getObjectLists({
       projectKey: DATA.projectKey,
       projectId: DATA.projectId,
-      path: `user/${data.bech32Address}`
+      path: `user/${data.id}`
     })
-    // xóa file cũ
-    const file_delete = await eueno.deleteObject({
-      projectKey: DATA.projectKey, 
-      projectId: DATA.id,
-      fileId: foder.data.files[0].id // id của file cần xóa
-    })
-    // upload file mới lên
+
+    for(let i=0; i<resp_obj.data.files.length;i++) {
+      if (resp_obj.data.files[i].name === 'info.json') {
+        const resp_del = await eueno.deleteObject({
+          projectKey: DATA.projectKey,
+          projectId: DATA.id,
+          fileId: resp_obj.data.files[i].id 
+        })        
+      }
+    }
+
     const file_upload = await eueno.upload(
       Buffer.from(JSON.stringify(data)),
       {
@@ -179,7 +177,7 @@ const userController = {
       },
       {
         projectId: DATA.projectId,
-        path: `user/${data.bech32Address}`,
+        path: `user/${data.id}`,
         filename: 'info.json',
         contentLength: 12313,
         contentType: 'application/json',
