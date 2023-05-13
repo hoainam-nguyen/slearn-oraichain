@@ -87,11 +87,19 @@ const CreateNewThread = () => {
         event.preventDefault();
 
         const newThread = {
-            title: { title },
-            category: { category },
-            content: { content },
-            image: { image },
+            owner: "user_id",
+            metadata: {
+                title: { title },
+                content: { content },
+                images: [{ image }],
+                likes: "0",
+                views: "0",
+                post_at: "1/1/2023",
+            },
+            comments: [],
+            config: {},
         };
+
         console.log(newThread);
     };
 
