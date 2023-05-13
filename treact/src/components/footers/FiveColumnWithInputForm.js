@@ -30,7 +30,7 @@ const SubscribeButton = tw(PrimaryButtonBase)`mt-4 sm:mt-0 w-full sm:w-auto roun
 
 const Divider = tw.div`my-16 border-b-2 border-gray-300 w-full`;
 
-const ThreeColRow = tw.div`flex flex-col md:flex-row items-center justify-between`;
+const ThreeColRow = tw.div`flex flex-col md:flex-row items-center justify-center`;
 
 const LogoContainer = tw.div`flex items-center justify-center md:justify-start`;
 const LogoImg = tw.img`w-8`;
@@ -52,7 +52,7 @@ export default () => {
       <Content>
         <SixColumns>
           <Column>
-            <ColumnHeading>Main</ColumnHeading>
+            <ColumnHeading>Home</ColumnHeading>
             <LinkList>
               <LinkListItem>
                 <Link href="#">Blog</Link>
@@ -69,7 +69,7 @@ export default () => {
             </LinkList>
           </Column>
           <Column>
-            <ColumnHeading>Product</ColumnHeading>
+            <ColumnHeading>Features</ColumnHeading>
             <LinkList>
               <LinkListItem>
                 <Link href="#">Log In</Link>
@@ -86,7 +86,7 @@ export default () => {
             </LinkList>
           </Column>
           <Column>
-            <ColumnHeading>Press</ColumnHeading>
+            <ColumnHeading>Sharing </ColumnHeading>
             <LinkList>
               <LinkListItem>
                 <Link href="#">Logos</Link>
@@ -103,7 +103,7 @@ export default () => {
             </LinkList>
           </Column>
           <Column>
-            <ColumnHeading>Legal</ColumnHeading>
+            <ColumnHeading>Contact us</ColumnHeading>
             <LinkList>
               <LinkListItem>
                 <Link href="#">GDPR</Link>
@@ -134,12 +134,13 @@ export default () => {
         </SixColumns>
         <Divider />
         <ThreeColRow>
-          <LogoContainer>
+          {/* <LogoContainer>
             <LogoImg src={LogoImage} />
             <LogoText>SLearn</LogoText>
-          </LogoContainer>
-          <CopywrightNotice>&copy; 2018 Treact Inc. All Rights Reserved.</CopywrightNotice>
-          <SocialLinksContainer>
+          </LogoContainer> */}
+          {/* <CopywrightNotice>&copy;</CopywrightNotice> */}
+          <CopywrightNotice>&copy; Copyright</CopywrightNotice>
+          {/* <SocialLinksContainer>
             <SocialLink href="https://facebook.com">
               <FacebookIcon />
             </SocialLink>
@@ -149,7 +150,7 @@ export default () => {
             <SocialLink href="https://youtube.com">
               <YoutubeIcon />
             </SocialLink>
-          </SocialLinksContainer>
+          </SocialLinksContainer> */}
         </ThreeColRow>
       </Content>
     </Container>

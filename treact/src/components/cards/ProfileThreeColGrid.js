@@ -12,6 +12,7 @@ import { ReactComponent as FacebookIcon } from "images/facebook-icon.svg";
 import UserNam from "images/user-nam.jpg";
 import UserLy from "images/user-ly.jpg";
 import UserThai from "images/user-thai.jpg";
+import UserHieu from "images/user-hieu.jpg";
 
 const HeadingContainer = tw.div``
 const Heading = tw(SectionHeading)``
@@ -68,6 +69,7 @@ export default ({
         },
       ],
     },
+
     {
       imageSrc: UserThai,
       position: "BlockChain Developer",
@@ -107,7 +109,7 @@ export default ({
       ],
     },
     {
-      imageSrc: "",
+      imageSrc: UserHieu,
       position: "Economics and Public Administration",
       name: "Trần Thị Thanh Hiếu ",
       links: [

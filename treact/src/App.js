@@ -1,6 +1,6 @@
-import React, {Suspense} from "react";
+import React, { Suspense } from "react";
 import GlobalStyles from 'styles/GlobalStyles';
-import {css} from "styled-components/macro";
+import { css } from "styled-components/macro";
 // eslint-disable-line
 
 /*
@@ -101,31 +101,31 @@ import {css} from "styled-components/macro";
 // import TermsOfServicePage from "pages/TermsOfService.js";
 // import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
 
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BotRenderer from "BotRenderer";
 // import ThreadDetail from "./components/forum/ThreadDetail";
 
 
-const RestaurantLandingPage = React.lazy(() => import ("./demos/RestaurantLandingPage"));
-const Login = React.lazy(() => import ("./pages/Login"))
-const Signup = React.lazy(() => import ("./pages/Signup"))
-const Pricing = React.lazy(() => import ("./pages/Pricing"))
-const Blog = React.lazy(() => import ("./pages/BlogIndex"))
-const About = React.lazy(() => import ("./pages/AboutUs"))
-const User = React.lazy(() => import ("./pages/User"))
-const UpdateUserProfile = React.lazy(() => import ("./pages/UpdateUserProfile"))
-const Blogpost = React.lazy(() => import ("./pages/Blogpost"))
-const Forum = React.lazy(() => import ("./pages/Forum"))
-const Thread = React.lazy(() => import ("./pages/ThreadForum"))
-const CreateThreadForum = React.lazy(() => import ("./pages/CreateThreadForum"))
-const Advance = React.lazy(() => import ("./pages/Advance"))
-const AdvanceSummarize = React.lazy(() => import ("./pages/AdvanceSummarize"))
-const AdvanceExplain = React.lazy(() => import ("./pages/AdvanceExplain"))
-const CreateChatbot = React.lazy(() => import ("./pages/CreateChatbot"))
+const RestaurantLandingPage = React.lazy(() => import("./demos/RestaurantLandingPage"));
+const Login = React.lazy(() => import("./pages/Login"))
+const Signup = React.lazy(() => import("./pages/Signup"))
+const Pricing = React.lazy(() => import("./pages/Pricing"))
+const Blog = React.lazy(() => import("./pages/BlogIndex"))
+const About = React.lazy(() => import("./pages/AboutUs"))
+const User = React.lazy(() => import("./pages/User"))
+const UpdateUserProfile = React.lazy(() => import("./pages/UpdateUserProfile"))
+const Blogpost = React.lazy(() => import("./pages/Blogpost"))
+const Forum = React.lazy(() => import("./pages/Forum"))
+const Thread = React.lazy(() => import("./pages/ThreadForum"))
+const CreateThreadForum = React.lazy(() => import("./pages/CreateThreadForum"))
+const Advance = React.lazy(() => import("./pages/Advance"))
+const AdvanceSummarize = React.lazy(() => import("./pages/AdvanceSummarize"))
+const AdvanceExplain = React.lazy(() => import("./pages/AdvanceExplain"))
+const CreateChatbot = React.lazy(() => import("./pages/CreateChatbot"))
 
 
 // const Thread = React.lazy(() => import ("./pages/Thread"))
-const Usernew = React.lazy(() => import ("./pages/usernew"))
+const Usernew = React.lazy(() => import("./pages/usernew"))
 
 
 export default function App() {
@@ -134,37 +134,37 @@ export default function App() {
 
     return (
         <>
-            <GlobalStyles/>
+            <GlobalStyles />
             <Router>
                 <Suspense fallback={<div
-                        style={
-{
-    textAlignLast: 'center',
-    position: 'absolute',
-    top: '50%',
-    left: '45%',
-    fontSize: '36px',
-    animation: "spin 0.5s linear infinite"
-}}>
+                    style={
+                        {
+                            textAlignLast: 'center',
+                            position: 'absolute',
+                            top: '50%',
+                            left: '45%',
+                            fontSize: '36px',
+                            animation: "spin 0.5s linear infinite"
+                        }}>
                     Loading...</div>}>
                     <Routes>
-                        <Route path="/" element={<RestaurantLandingPage/>}/>
-                        <Route path="/login" element={<Login/>}/>
-                        <Route path="/signup" element={<Signup/>}/>
-                        <Route path="/pricing" element={<Pricing/>}/>
-                        <Route path="/blog" element={<Blog/>}/>
-                        <Route path="/about" element={<About/>}/>
-                        <Route path="/user" element={<User/>}/>
-                        <Route path="/chatbot/:type/:name" element={<BotRenderer/>}/>
-                        <Route path="/blog/post" element={<Blogpost/>}/>
-                        <Route path="/forum/" element={<Forum/>}/>
-                        <Route path="/forum/thread/:id" element={<Thread/>}/>
-                        <Route path="/forum/create-new-thread" element={<CreateThreadForum/>}/>
-                        <Route path="/usernew" element={<Usernew/>}/>
-                        <Route path="/advance/" element={<Advance/>}/>
-                        <Route path="/advance/summarize" element={<AdvanceSummarize/>}/>
-                        <Route path="/advance/explain" element={<AdvanceExplain/>}/>
-                        <Route path="/chatbot/create-chatbot" element={<CreateChatbot/>}/>
+                        <Route path="/" element={<RestaurantLandingPage />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/signup" element={<Signup />} />
+                        <Route path="/pricing" element={<Pricing />} />
+                        <Route path="/blog" element={<Blog />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/user" element={<User />} />
+                        <Route path="/chatbot/:type/:name" element={<BotRenderer />} />
+                        <Route path="/blog/post" element={<Blogpost />} />
+                        <Route path="/forum/" element={<Forum />} />
+                        <Route path="/forum/thread/:id" element={<Thread />} />
+                        <Route path="/forum/create-new-thread" element={<CreateThreadForum />} />
+                        <Route path="/usernew" element={<Usernew />} />
+                        <Route path="/advance/" element={<Advance />} />
+                        <Route path="/advance/summarize" element={<AdvanceSummarize />} />
+                        <Route path="/advance/explain" element={<AdvanceExplain />} />
+                        <Route path="/chatbot/create-chatbot" element={<CreateChatbot />} />
                     </Routes>
                 </Suspense>
             </Router>

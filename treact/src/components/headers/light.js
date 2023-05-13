@@ -8,15 +8,18 @@ import { AppContext } from "store.js";
 
 import useAnimatedNavToggler from "../../helpers/useAnimatedNavToggler.js";
 
-import logo from "../../images/dummy_logo.jpg";
+import logo from "../../images/Logo_02.png";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 import { ReactComponent as UserIcon } from "images/user-solid.svg";
+import { SigningCosmosClient } from "@cosmjs/launchpad";
+import axios from "axios";
 
 
 const Header = tw.header`
   flex justify-between items-center
-  mx-auto fixed bg-white z-10 w-screen h-20 top-0 left-0 p-10
+  mx-auto fixed bg-white z-20 w-screen h-20 top-0 left-0 p-10
+  shadow
 `;
 
 export const NavLinks = tw.div`flex`;
@@ -78,10 +81,10 @@ const DropdownMenu = styled.ul(props => [
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   min-width: 120%;`,
-  props.value?`display: block;`:`display: none;`,
-  ]);
-  const DropdownMenuLogout = styled.ul(props => [
-    `
+  props.value ? `display: block;` : `display: none;`,
+]);
+const DropdownMenuLogout = styled.ul(props => [
+  `
     background-color: #fff;
     list-style: none;
     position: absolute;
@@ -97,8 +100,8 @@ const DropdownMenu = styled.ul(props => [
     border-radius: 10px;
     transform: translateX(70px);
     min-width: 60%;`,
-    props.value?`display: block;`:`display: none;`,
-    ]);
+  props.value ? `display: block;` : `display: none;`,
+]);
 
 const DropdownButton = styled.button`
    ${tw`text-lg my-2 lg:text-sm lg:mx-6 lg:my-0
@@ -139,6 +142,111 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   const handleMouseEnter = () => {
     setShowMenu(true);
   };
+  const onClickTruyNow = async (e) => {
+    e.preventDefault();
+    if (!window.keplr) {
+      alert("Please install keplr extension");
+    }
+    else {
+      const chainId = "cosmoshub-4";
+
+      // Enabling before using the Keplr is recommended.
+      // This method will ask the user whether to allow access if they haven't visited this website.
+      // Also, it will request that the user unlock the wallet if the wallet is locked.
+      await window.keplr.enable(chainId);
+
+      const offlineSigner = window.keplr.getOfflineSigner(chainId);
+
+      // You can get the address/public keys by `getAccounts` method.
+      // It can return the array of address/public key.
+      // But, currently, Keplr extension manages only one address/public key pair.
+      // XXX: This line is needed to set the sender address for SigningCosmosClient.
+      const accounts = await offlineSigner.getAccounts();
+
+      // Initialize the gaia api with the offline signer that is injected by Keplr extension.
+      const _ = new SigningCosmosClient(
+        "https://lcd-cosmoshub.keplr.app",
+        accounts[0].address,
+        offlineSigner,
+      );
+      const name = await window.keplr.getKey(chainId)
+      // console.log(name)
+      // const datareq = {
+      //   name: name.name,
+      //   bech32Address: name.bech32Address,
+      //   algo: name.algo
+      // }
+      // console.log(name)
+      // const data_req = {
+      //   id: name.bech32Address,
+
+      // }
+      const id = name.bech32Address
+
+      axios.get(`http://localhost:8010/user/check?id=${id}`)
+        .then(response => {
+          console.log(response)
+          if (response.data.is_exist) {
+            data.user.set(name.name)
+            data.signin.set(true)
+          }
+          else {
+            const data_create = {
+              id: name.bech32Address,
+              owallet_response: name,
+              metadata: {},
+              user_resource: {},
+              configs: {}
+            }
+            axios.post(`http://localhost:8010/user/create`, data_create)
+              .then((response) => {
+
+                console.log(response)
+                data.user.set(name.name)
+                data.signin.set(true)
+
+              }).catch((err) => {
+                console.log("ERROR", err)
+              })
+          }
+        }).catch(err => {
+          console.log("ERROR", err)
+        })
+
+      // console.log(datareq)
+      // axios.post("http://localhost:3001/user/getuser", datareq
+      // ).then((response) => {
+      //   console.log(response)
+      //   if (response.data == "User is not existed") {
+      //     // alert("Bạn chưa đăng kí")
+      //     // data.user.set(name.name)
+      //     // data.signin.set(true)
+      //     axios.post("http://localhost:3001/user", datareq
+      //     ).then((response) => {
+      //       console.log(response)
+      //       if (response.data.message == "Folder existed") {
+      //         alert("ERROR")
+      //       }
+      //       else {
+      //         data.user.set(name.name)
+      //         data.signin.set(true)
+      //       }
+      //     }).catch((err) => {
+      //       console.log("ERROR", err)
+      //     })
+
+      //   }
+      //   else {
+      //     data.user.set(name.name)
+      //     data.signin.set(true)
+      //     // history("/")
+      //   }
+
+      // }).catch((err) => {
+      //   console.log("ERROR", err)
+      // })
+    }
+  }
 
   const handleMouseLeave = () => {
     setShowMenu(false);
@@ -152,7 +260,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
 
       <DropdownContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <DropdownButton>Solutions</DropdownButton>
-          <DropdownMenu value={showMenu}>
+        <DropdownMenu value={showMenu}>
           <DropdownItem>Item 1</DropdownItem>
           <DropdownItem>Item 2</DropdownItem>
           <DropdownItem>Item 3</DropdownItem>
@@ -164,62 +272,57 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
       </Link>
 
       <Link>
-      <NavLink href="/#">Contact Us</NavLink>
+        <NavLink href="/#">Contact Us</NavLink>
       </Link>
 
-      <Link to="/login">
-        <NavLink tw="lg:ml-12!">
-          Login
-        </NavLink>
-      </Link>
-      <Link to="/signup">
-        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`} >Sign Up</PrimaryLink>
+      <Link onClick={onClickTruyNow}>
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`} >Try now</PrimaryLink>
       </Link>
     </NavLinks>
   ];
-  const defaultLinkstrue =  [<NavLinks key={1}>
-  <Link to="/about">
-    <NavLink>About</NavLink>
-  </Link>
+  const defaultLinkstrue = [<NavLinks key={1}>
+    <Link to="/about">
+      <NavLink>About</NavLink>
+    </Link>
 
-  <DropdownContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-    <DropdownButton>Solutions</DropdownButton>
-    <DropdownMenu value={showMenu}>
-          <DropdownItem>
-            <Link to="/forum">Forums</Link>
-          </DropdownItem>
-          <DropdownItem>
-            <Link to="/blog">Blogs</Link>
-          </DropdownItem>
-          <DropdownItem>
-            <Link to="/chatbot/language/LanguageGPT">Bot Chat</Link>
-          </DropdownItem>
-    </DropdownMenu>
-  </DropdownContainer>
+    <DropdownContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <DropdownButton>Solutions</DropdownButton>
+      <DropdownMenu value={showMenu}>
+        <DropdownItem>
+          <Link to="/forum">Forums</Link>
+        </DropdownItem>
+        <DropdownItem>
+          <Link to="/blog">Blogs</Link>
+        </DropdownItem>
+        <DropdownItem>
+          <Link to="/chatbot/language/LanguageGPT">Bot Chat</Link>
+        </DropdownItem>
+      </DropdownMenu>
+    </DropdownContainer>
 
-  <Link to='/pricing'>
-    <NavLink >Pricing</NavLink>
-  </Link>
-  <Link>
-    <NavLink >Contact Us</NavLink>
-  </Link>
+    <Link to='/pricing'>
+      <NavLink >Pricing</NavLink>
+    </Link>
+    <Link>
+      <NavLink >Contact Us</NavLink>
+    </Link>
 
-    <DropdownContainer onMouseEnter={()=> setShowlogout(true)} onMouseLeave={()=>setShowlogout(false)}>
+    <DropdownContainer onMouseEnter={() => setShowlogout(true)} onMouseLeave={() => setShowlogout(false)}>
       <DropdownButton>
-          <Link to="/user">
-            <NavLink tw="flex items-center lg:ml-12!">
-              <UserIcon tw="w-6 h-6 lg:mr-2 border border-solid border-gray-500 rounded-full p-1"></UserIcon>
-                {data.user.status}
-            </NavLink>
+        <Link to="/user">
+          <NavLink tw="flex items-center lg:ml-12!">
+            <UserIcon tw="w-6 h-6 lg:mr-2 border border-solid border-gray-500 rounded-full p-1"></UserIcon>
+            {data.user.status}
+          </NavLink>
         </Link>
       </DropdownButton>
       <DropdownMenuLogout value={showlogout}>
-          <DropdownItem onClick={(e)=> data.signin.set(false)}>
-            <Link to="/login">Logout</Link>
-          </DropdownItem>
-    </DropdownMenuLogout>
+        <DropdownItem onClick={(e) => data.signin.set(false)}>
+          <Link to="/login">Logout</Link>
+        </DropdownItem>
+      </DropdownMenuLogout>
     </DropdownContainer>
-</NavLinks>
+  </NavLinks>
   ]
 
   const { showNavLinks, animation, toggleNavbar } = useAnimatedNavToggler();
@@ -233,14 +336,14 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   );
 
   logoLink = logoLink || defaultLogoLink;
-  links = links || (!data.signin.status)? defaultLinks:defaultLinkstrue;
+  links = links || (!data.signin.status) ? defaultLinks : defaultLinkstrue;
 
   return (
     <Header className={className || "header-light"}>
-        <DesktopNavLinks css={collapseBreakpointCss.desktopNavLinks}>
-          {logoLink}
-          {links}
-        </DesktopNavLinks>
+      <DesktopNavLinks css={collapseBreakpointCss.desktopNavLinks}>
+        {logoLink}
+        {links}
+      </DesktopNavLinks>
 
       <MobileNavLinksContainer css={collapseBreakpointCss.mobileNavLinksContainer}>
         {logoLink}
