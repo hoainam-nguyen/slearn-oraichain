@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles.css";
-import UpvoteFeatures from "./UpvoteFeatures";
-import DownvoteFeatures from "./DownvoteFeatures";
+
 
 import tw from "twin.macro";
 import { ReactComponent as UpvoteSolid } from "images/chevron-up-solid.svg";

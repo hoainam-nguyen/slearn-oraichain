@@ -49,7 +49,7 @@ const Forum = ({
                     downvoting: 1,
                 },
             ],
-            config: {},
+            config: {}
         }
     ],
 }) => {
@@ -71,7 +71,6 @@ const Forum = ({
             return thread;
         });
 
-        // Cập nhật biến data với giá trị mới
         setNewData(updatedData);
     };
 
