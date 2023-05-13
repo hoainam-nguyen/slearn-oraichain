@@ -255,7 +255,7 @@ const ThreadInfo = ({
         fetchData();
     }, []);
 
-    console.log(newdata);
+    // console.log(newdata);
 
     const classes = useStyles();
 
@@ -328,16 +328,16 @@ const ThreadInfo = ({
     };
 
     // check comment is truthy
-    const checkCommentTruthy =  (comment) => {
+    const checkCommentTruthy =  async (comment) => {
         // const url = "https://api.ai-market.dinohub.io/ai-market/services/d41d490e-4555-44eb-9a78-e5e2f6f71472/endpoints/a9c25f4b-e8d3-4a36-a2c9-949a5679c3ee/free?customer_token=5ff8f383b6e3aa588285a536fe04b18949d77ab9db951120dfc889323cd652d5";
         
         let url = "https://aiclub.uit.edu.vn/namnh/multi_bot/chat"
-        const res = checkCommentFunction(url, { bot_id: "checkcomment", prompt: comment })
-        console.log(res.content.answer.negative)
-        return res.content.answer.negative;
+        const resp = await checkCommentFunction(url, { bot_id: "checkcomment", prompt: comment })
+        console.log(resp)
+        return resp.content.answer.negative
     };
 
-    const handleSubmitBtn = (event) => {
+    const handleSubmitBtn = async (event) => {
         event.preventDefault();
         if (commentText.trim() === "") {
             return;
@@ -345,7 +345,7 @@ const ThreadInfo = ({
 
         // kiem tra comment lieu co dang tin
         console.log(commentText)
-        const flag_check = checkCommentTruthy(commentText) 
+        const flag_check = await checkCommentTruthy(commentText) 
         console.log(flag_check)
         if (flag_check) {
             // thong bao comment co van de, va khong cho dang tin
