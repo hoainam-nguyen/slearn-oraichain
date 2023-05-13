@@ -78,6 +78,10 @@ const options = [
         value: "music",
         label: "Music",
     },
+    {
+        value: "blockchain",
+        label: "Blockchain",
+    }
 ];
 
 const CreateNewThread = () => {

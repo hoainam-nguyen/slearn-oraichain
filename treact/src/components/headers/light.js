@@ -215,15 +215,21 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
       </Link>
 
       <DropdownContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-        <DropdownButton>Features</DropdownButton>
-        <DropdownMenu value={showMenu}>
-          <DropdownItem>Item 1</DropdownItem>
-          <DropdownItem>Item 2</DropdownItem>
-          <DropdownItem>Item 3</DropdownItem>
-        </DropdownMenu>
-      </DropdownContainer>
+      <DropdownButton>Features</DropdownButton>
+      <DropdownMenu value={showMenu}>
+        <DropdownItem>
+          <Link to="/forum">Forums</Link>
+        </DropdownItem>
+        {/* <DropdownItem>
+          <Link to="/blog">Blogs</Link>
+        </DropdownItem> */}
+        <DropdownItem>
+          <Link to="/chatbot/language/LanguageGPT">Bot Chat</Link>
+        </DropdownItem>
+      </DropdownMenu>
+    </DropdownContainer>
 
-      <Link to='/pricing'>
+      <Link to='/forum'>
         <NavLink >Sharing</NavLink>
       </Link>
 
@@ -247,16 +253,16 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
         <DropdownItem>
           <Link to="/forum">Forums</Link>
         </DropdownItem>
-        <DropdownItem>
+        {/* <DropdownItem>
           <Link to="/blog">Blogs</Link>
-        </DropdownItem>
+        </DropdownItem> */}
         <DropdownItem>
           <Link to="/chatbot/language/LanguageGPT">Bot Chat</Link>
         </DropdownItem>
       </DropdownMenu>
     </DropdownContainer>
 
-    <Link to='/pricing'>
+    <Link to='/forum'>
       <NavLink >Sharing</NavLink>
     </Link>
     <Link>
