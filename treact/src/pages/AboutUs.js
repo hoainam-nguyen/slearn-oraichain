@@ -25,7 +25,7 @@ export default () => {
         subheading={<Subheading>About Treact</Subheading>}
         heading="We are a modern design agency."
         buttonRounded={false}
-        primaryButtonText="See Portfolio"
+        // primaryButtonText="See Portfolio"
         imageSrc="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=768&q=80"
       />
       <MainFeature1
