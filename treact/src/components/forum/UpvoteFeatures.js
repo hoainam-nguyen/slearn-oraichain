@@ -13,18 +13,25 @@ const InteractButton = tw.button `
   bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-blue-500`;
 
 
-const UpvoteFeatures = ({id}) => {
-    const data = useContext(AppContext)
-    const [upvotenumber, setUpvotenumber] = React.useState(0)
-    const temp = data.upvote.status
-    temp[id] = {
-        value: upvotenumber,
-        set: setUpvotenumber
-    }
-    data.upvote.set(temp)
+const UpvoteFeatures = ({upvotes}) => {
+    // const data = useContext(AppContext)
+    // const [upvotenumber, setUpvotenumber] = React.useState(0)
+    // const temp = data.upvote.status
+    // temp[id] = {
+    //     value: upvotenumber,
+    //     set: setUpvotenumber
+    // }
+    // data.upvote.set(temp)
+    // const onClickUpvote = (e) => {
+    //     e.preventDefault()
+    //     data.upvote.status[id].set(data.upvote.status[id].value + 1)
+    // }
+
+    const [upvotenumber, setUpvoteNumber] = React.useState(upvotes)
+
     const onClickUpvote = (e) => {
         e.preventDefault()
-        data.upvote.status[id].set(data.upvote.status[id].value + 1)
+        setUpvoteNumber((Number(upvotenumber) + Number(1)).toString())
     }
     return (
         <div>
@@ -40,12 +47,12 @@ const UpvoteFeatures = ({id}) => {
                             {margin: "0 5px"}
                         }>
                             {
-                            data.upvote.status[id].value
+                            upvotenumber
                         } </span>
                     </span>
 
                     <div> {
-                        data.upvote.status[id].value <= 1 ? (
+                        upvotenumber <= 1 ? (
                             <span>Upvote</span>
                         ) : (
                             <span>Upvotes</span>

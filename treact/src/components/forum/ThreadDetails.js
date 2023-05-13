@@ -5,98 +5,156 @@ import MyAnswer from "./MyAnswer";
 import SearchBar from "./SearchBar";
 import CreateNewThreadBtn from "./CreateNewThreadBtn";
 
-import "./styles.css"
+import "./styles.css";
 
-const ThreadInfo = () => {
-
-    const question_fake_data = {
-        id: "1",
-        title: "Fix bug for React code",
-        topic: "React",
-        content: "I have a problem with my code...",
-        author: "Davis",
-        datePost: "1/1/2023",
-        replies: "4",
-        views: "100"
-    }
-
-    const answer_fake_data = [
+const ThreadInfo = ({
+    data = [
         {
             id: "1",
-            content: "You should do this...",
-            author: "Anne",
-            datePost: "1/1/2023",
-            userAvatar: "https://i.imgur.com/8Km9tLL.png"
-        }, {
-            id: "2",
-            content: "You should do this...",
-            author: "Anne",
-            datePost: "1/1/2023",
-            userAvatar: "https://i.imgur.com/8Km9tLL.png"
-        }
-    ]
+            owner: "user_id",
+            metadata: {
+                title: "Fix bug for React code",
+                content: "I have a problem with my code...",
+                images: [],
+                likes: "5",
+                views: "20",
+                post_at: "1/1/2023",
+            },
+            comments: [
+                {
+                    id_cmt: "1",
+                    created_by: "henry",
+                    content: "You should do this...",
+                    images: [],
+                    upvoting: 3,
+                    downvoting: 1,
+                },
+                {
+                    id_cmt: "2",
+                    created_by: "Tom",
+                    content: "You should do this...",
+                    images: [],
+                    upvoting: 1,
+                    downvoting: 1,
+                },
+            ],
+            config: {},
+        },
+    ],
+}) => {
+    const [newdata, setNewData] = React.useState(data);
 
+    const handleLike = (threadId, newLikes) => {
+        const updatedData = data.map((thread) => {
+            if (thread.id === threadId) {
+                return {
+                    ...thread,
+                    metadata: {
+                        ...thread.metadata,
+                        likes: newLikes.toString(),
+                    },
+                };
+            }
+            return thread;
+        });
 
+        setNewData(updatedData);
+        console.log(updatedData);
+    };
+
+    const handleUpvote = (cmtId, newUpvotes) => {
+        const updatedData = data.map((thread) => {
+            if (thread.id === newdata[0].id) {
+                const updatedComments = thread.comments.map((cmt) => {
+                    if (cmt.id_cmt === cmtId) {
+                        return {
+                            ...cmt,
+                            upvoting: newUpvotes.toString(),
+                        };
+                    }
+                    return cmt;
+                });
+
+                return {
+                    ...thread,
+                    comments: updatedComments,
+                };
+            }
+            return thread;
+        });
+
+        setNewData(updatedData);
+        console.log(updatedData);
+    };
+
+    const handleDownvote = (cmtId, newDownvotes) => {
+        const updatedData = data.map((thread) => {
+            if (thread.id === newdata[0].id) {
+                const updatedComments = thread.comments.map((cmt) => {
+                    if (cmt.id_cmt === cmtId) {
+                        return {
+                            ...cmt,
+                            downvoting: newDownvotes.toString(),
+                        };
+                    }
+                    return cmt;
+                });
+
+                return {
+                    ...thread,
+                    comments: updatedComments,
+                };
+            }
+            return thread;
+        });
+
+        setNewData(updatedData);
+        console.log(updatedData);
+    };
+
+    // updateData chua data moi nhat
     return (
         <>
             <div className="header-forum">
-                <SearchBar/>
+                <SearchBar />
                 <br></br>
-                <CreateNewThreadBtn/>
+                <CreateNewThreadBtn />
             </div>
 
             <div className="question">
-                <ThreadSummary id={
-                        question_fake_data.id
-                    }
-                    title={
-                        question_fake_data.title
-                    }
-                    topic={
-                        question_fake_data.topic
-                    }
-                    content={
-                        question_fake_data.content
-                    }
-                    author={
-                        question_fake_data.author
-                    }
-                    datePost={
-                        question_fake_data.datePost
-                    }
-                    replies={
-                        question_fake_data.replies
-                    }
-                    views={
-                        question_fake_data.views
-                    }/>
+                <ThreadSummary
+                    id={newdata[0].id}
+                    title={newdata[0].metadata.title}
+                    content={newdata[0].metadata.content}
+                    author={newdata[0].owner}
+                    datePost={newdata[0].metadata.post_at}
+                    replies={newdata[0].comments.length}
+                    likes={newdata[0].metadata.likes}
+                    views={newdata[0].metadata.views}
+                    onLike={handleLike}
+                />
             </div>
 
             <div className="answer">
-                {
-                answer_fake_data.map((value, index) => {
+                {data[0].comments.map((value, index) => {
                     return (
-                        <Answer id={
-                                value.id
-                            }
-                            content={
-                                value.content
-                            }
-                            author={
-                                value.author
-                            }
-                            datePost={
-                                value.datePost
-                            }
-                            userAvatar={
-                                value.userAvatar
-                            }/>
-                    )
-                })
-            } </div>
+                        <Answer
+                            id={value.id_cmt}
+                            content={value.content}
+                            author={value.created_by}
+                            datePost={value.datePost}
+                            userAvatar={value.userAvatar}
+                            upvotes={value.upvoting}
+                            downvotes={value.downvoting}
+                            onUpvote={handleUpvote}
+                            onDownvote={handleDownvote}
+                        />
+                    );
+                })}{" "}
+            </div>
 
             <div className="my-answer">
-                <MyAnswer userAvatar="https://i.imgur.com/8Km9tLL.png"/>
+                <MyAnswer userAvatar="https://i.imgur.com/8Km9tLL.png" />
             </div>
         </>
     );

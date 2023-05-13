@@ -13,19 +13,28 @@ const InteractButton = tw.button `
   bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-blue-500`;
 
 
-const DownvoteFeatures = ({id}) => {
-    const data = useContext(AppContext)
-    const [downvotenumber, setDownvotenumber] = React.useState(0)
-    const temp = data.downvote.status
-    temp[id] = {
-        value: downvotenumber,
-        set: setDownvotenumber
-    }
-    data.downvote.set(temp)
-    const onClickDownvote = (e) => {
+const DownvoteFeatures = ({downvotes}) => {
+    // const data = useContext(AppContext)
+    // const [downvotenumber, setDownvotenumber] = React.useState(0)
+    // const temp = data.downvote.status
+    // temp[id] = {
+    //     value: downvotenumber,
+    //     set: setDownvotenumber
+    // }
+    // data.downvote.set(temp)
+    // const onClickDownvote = (e) => {
+    //     e.preventDefault()
+    //     data.downvote.status[id].set(data.downvote.status[id].value + 1)
+    // }
+
+    const [downvotenumber, setdownvotenumber] = React.useState(downvotes)
+
+    const onClickdownvote = (e) => {
         e.preventDefault()
-        data.downvote.status[id].set(data.downvote.status[id].value + 1)
+        setdownvotenumber((Number(downvotenumber) + 1).toString())
     }
+
+
     return (
         <div>
             <div>
@@ -40,12 +49,12 @@ const DownvoteFeatures = ({id}) => {
                             {margin: "0 5px"}
                         }>
                             {
-                            data.downvote.status[id].value
+                            downvotenumber
                         } </span>
                     </span>
 
                     <div> {
-                        data.downvote.status[id].value <= 1 ? (
+                        downvotenumber <= 1 ? (
                             <span>Downvote</span>
                         ) : (
                             <span>Downvotes</span>
@@ -54,7 +63,7 @@ const DownvoteFeatures = ({id}) => {
                 </span>
             </div>
             <div className="up-down-button">
-                <InteractButton onClick={onClickDownvote}>Downvote
+                <InteractButton onClick={onClickdownvote}>Downvote
                 </InteractButton>
             </div>
         </div>
