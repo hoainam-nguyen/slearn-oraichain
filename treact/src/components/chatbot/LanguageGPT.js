@@ -140,7 +140,7 @@ const Chatbot = ({ type = "slearn" }) => {
             <div className="chatbot">
                 <ChatbotContainer>
                     <ChatHeader>
-                        <ChatTitle>EduBot</ChatTitle>
+                        <ChatTitle>Experience diversity, versatility in chatbots - Let us help you!</ChatTitle>
                     </ChatHeader>
                     <ChatBody ref={containerRef}>
                         {messages.map((message, index) => (
