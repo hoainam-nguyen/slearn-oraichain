@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import tw, { styled } from 'twin.macro';
-
+import { useParams } from "react-router-dom";
 import Header from "../headers/light.js";
 import Footer from "../footers/FiveColumnWithInputForm.js";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
@@ -11,7 +11,10 @@ export const ChatbotContainer = styled.div`
   ${tw`rounded-t-lg
   m-4
   border-2
-  border-gray-300`};
+  border-gray-300
+  w-7/12
+  mx-auto
+  `};
 `;
 
 export const ChatHeader = tw.div`
@@ -78,7 +81,7 @@ function postData(url = '', data = {}) {
     .then(response => response.json());
 }
 
-const Chatbot = () => {
+const Chatbot = ({type="slearn"}) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -96,12 +99,16 @@ const Chatbot = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (message !== '') {
-      setMessages([...messages, { sender: 'user', text: message }, { sender: 'bot', text: "Đang suy nghĩ..." }])
+      setMessages([...messages, { sender: 'user', text: message }, { sender: 'bot', text: "Loading ..." }])
       setMessage('');
       setIsLoading(true);
+      
 
-      const data = await postData('https://cors-anywhere.herokuapp.com/https://aiclub.uit.edu.vn/namnh/bot/chat', { context: message })
+      
+
+      const data = await postData('https://cors-anywhere.herokuapp.com/https://aiclub.uit.edu.vn/namnh/multi_bot/chat', {bot_id:type,  prompt: message })
       // console.log(data)
       if (data.msg == 'Finish!' && data.status_code == 200)
       {
@@ -133,7 +140,7 @@ const Chatbot = () => {
                 </TextReq>
               ) : (
                 <TextRep>
-                  <span>Chatbot:</span> {message.text}
+                  <span></span> {message.text}
                 </TextRep>
               )}
             </div>

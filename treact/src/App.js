@@ -155,7 +155,7 @@ export default function App() {
                         <Route path="/blog" element={<Blog/>}/>
                         <Route path="/about" element={<About/>}/>
                         <Route path="/user" element={<User/>}/>
-                        <Route path="/chatbot/:type/:name" element={<BotRenderer/>}/>
+                        <Route path="/chatbot/:type" element={<BotRenderer/>}/>
                         <Route path="/blog/post" element={<Blogpost/>}/>
                         <Route path="/forum/" element={<Forum/>}/>
                         <Route path="/forum/thread/:id" element={<Thread/>}/>
