@@ -112,7 +112,7 @@ const Chatbot = ({type="slearn"}) => {
       // console.log(data)
       if (data.msg == 'Finish!' && data.status_code == 200)
       {
-        setMessages([...messages, { sender: 'user', text: message }, { sender: 'bot', text: data.content }]);
+        setMessages([...messages, { sender: 'user', text: message }, { sender: 'bot', text: data.content.answer }]);
       }
       else{
         setMessages([...messages, { sender: 'user', text: message }, { sender: 'bot', text: `ERROR: ${data}` }]);
@@ -129,7 +129,7 @@ const Chatbot = ({type="slearn"}) => {
       <Header />
       <ChatbotContainer>
         <ChatHeader>
-          <ChatTitle>BotQuizz</ChatTitle>
+          <ChatTitle>EduBot</ChatTitle>
         </ChatHeader>
         <ChatBody ref={containerRef}>
           {messages.map((message, index) => (

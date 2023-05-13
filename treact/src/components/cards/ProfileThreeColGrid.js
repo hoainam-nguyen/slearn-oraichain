@@ -110,7 +110,7 @@ export default ({
     },
     {
       imageSrc: UserHieu,
-      position: "Economics and Public Administration",
+      position: "Business Analyst",
       name: "Trần Thị Thanh Hiếu ",
       links: [
         {
