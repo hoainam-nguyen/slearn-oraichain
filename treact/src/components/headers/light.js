@@ -170,17 +170,6 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
         offlineSigner,
       );
       const name = await window.keplr.getKey(chainId)
-      // console.log(name)
-      // const datareq = {
-      //   name: name.name,
-      //   bech32Address: name.bech32Address,
-      //   algo: name.algo
-      // }
-      // console.log(name)
-      // const data_req = {
-      //   id: name.bech32Address,
-
-      // }
       const id = name.bech32Address
 
       axios.get(`http://localhost:8010/user/check?id=${id}`)
@@ -212,39 +201,6 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
         }).catch(err => {
           console.log("ERROR", err)
         })
-
-      // console.log(datareq)
-      // axios.post("http://localhost:3001/user/getuser", datareq
-      // ).then((response) => {
-      //   console.log(response)
-      //   if (response.data == "User is not existed") {
-      //     // alert("Bạn chưa đăng kí")
-      //     // data.user.set(name.name)
-      //     // data.signin.set(true)
-      //     axios.post("http://localhost:3001/user", datareq
-      //     ).then((response) => {
-      //       console.log(response)
-      //       if (response.data.message == "Folder existed") {
-      //         alert("ERROR")
-      //       }
-      //       else {
-      //         data.user.set(name.name)
-      //         data.signin.set(true)
-      //       }
-      //     }).catch((err) => {
-      //       console.log("ERROR", err)
-      //     })
-
-      //   }
-      //   else {
-      //     data.user.set(name.name)
-      //     data.signin.set(true)
-      //     // history("/")
-      //   }
-
-      // }).catch((err) => {
-      //   console.log("ERROR", err)
-      // })
     }
   }
 
