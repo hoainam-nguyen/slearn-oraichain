@@ -10,7 +10,7 @@ async function readUrl(url) {
 
 
 const forumController = {
-  checkForum: async(req, res, next) => {
+  checkForum: async (req, res, next) => {
     // Kiểm tra xem user đã có hoặc không tồn tại trong eueno
     // user id
     const forumid = req.query.id
@@ -26,14 +26,14 @@ const forumController = {
       projectId: DATA.projectId,
       path: `forum/`
     })
-    
+
     const folders = resp.data.folders;
 
     // Check
     if (folders.includes(forumid)) {
-      return res.status(200).json({'msg': 'Finish!', 'is_exist': true})
+      return res.status(200).json({ 'msg': 'Finish!', 'is_exist': true })
     } else {
-      return res.status(200).json({'msg': 'Finish!', 'is_exist': false})
+      return res.status(200).json({ 'msg': 'Finish!', 'is_exist': false })
     }
   },
 
@@ -48,11 +48,11 @@ const forumController = {
         comments: req.body.comments,
         config: req.body.config
       }
-    //   console.log(data)
+      //   console.log(data)
 
-    //   res.status(200).json(data)
+      //   res.status(200).json(data)
 
-    //   Define eueno 
+      //   Define eueno 
       const eueno = new Eueno({
         endpoint: 'https://v2-developers.eueno.io',
       });
@@ -103,7 +103,7 @@ const forumController = {
   getForum: async (req, res, next) => {
     try {
 
-      const forumid = req.query.id 
+      const forumid = req.query.id
 
       // 
       const eueno = new Eueno({
@@ -120,11 +120,11 @@ const forumController = {
         const url = resp_obj.data.files[0].url
         resp_obj.data.files[0].name
 
-        
-        for(let i=0; i<resp_obj.data.files.length;i++) {
+
+        for (let i = 0; i < resp_obj.data.files.length; i++) {
           if (resp_obj.data.files[i].name === 'blog_info.json') {
             const info = await readUrl(resp_obj.data.files[i].url)
-            return res.status(200).json({'msg':'Finish.', 'data':info})
+            return res.status(200).json({ 'msg': 'Finish.', 'data': info })
           }
         }
 
@@ -143,12 +143,12 @@ const forumController = {
   updateForum: async (req, res, next) => {
     // lấy data từ client
     const data = {
-        id: req.body.id,
-        owner: req.body.owner,
-        metadata: req.body.metadata,
-        comments: req.body.comments,
-        config: req.body.config
-      }
+      id: req.body.id,
+      owner: req.body.owner,
+      metadata: req.body.metadata,
+      comments: req.body.comments,
+      config: req.body.config
+    }
 
     const eueno = new Eueno({
       endpoint: 'https://v2-developers.eueno.io',
@@ -160,13 +160,13 @@ const forumController = {
       path: `forum/${data.id}`
     })
 
-    for(let i=0; i<resp_obj.data.files.length;i++) {
+    for (let i = 0; i < resp_obj.data.files.length; i++) {
       if (resp_obj.data.files[i].name === 'blog_info.json') {
         const resp_del = await eueno.deleteObject({
           projectKey: DATA.projectKey,
           projectId: DATA.id,
-          fileId: resp_obj.data.files[i].id 
-        })        
+          fileId: resp_obj.data.files[i].id
+        })
       }
     }
 
@@ -189,7 +189,90 @@ const forumController = {
       },
     )
     return res.status(200).json(file_upload)
-  }
+  },
+  getId: async (req, res, next) => {
+    const eueno = new Eueno({
+      endpoint: 'https://v2-developers.eueno.io',
+    });
+
+    try {
+
+      const resp_obj = await eueno.getObjectLists({
+        projectKey: DATA.projectKey,
+        projectId: DATA.projectId,
+        path: `forum`
+      })
+      // console.log(resp_obj)
+      res.status(200).json(resp_obj.data.folders.length)
+    }
+    catch (err) {
+      console.log(err)
+      res.status(500).json(err)
+    }
+  },
+  getallForum: async (req, res, next) => {
+    try {
+
+      // 
+      const eueno = new Eueno({
+        endpoint: 'https://v2-developers.eueno.io',
+      });
+
+      try {
+        const resp_obj = await eueno.getObjectLists({
+          projectKey: DATA.projectKey,
+          projectId: DATA.projectId,
+          path: `forum/`
+        })
+
+        // const url = resp_obj.data.files[0].url
+        // resp_obj.data.files[0].name
+        resp_obj.data.folders
+        const all_folders = resp_obj.data.folders
+        // console.log(all_folder)
+        // // console.log(resp_obj)
+        // res.status(200).json(all_folder)
+        let data_rep = []
+        for (let folder = 0; folder < all_folders.length; folder++) {
+          
+          const resp_obj = await eueno.getObjectLists({
+            projectKey: DATA.projectKey,
+            projectId: DATA.projectId,
+            path: `forum/${all_folders[folder]}`
+          })
+          const url = resp_obj.data.files[0].url
+          resp_obj.data.files[0].name
+          // console.log(resp_obj)
+          for (let i = 0; i < resp_obj.data.files.length; i++) {
+            if (resp_obj.data.files[i].name === 'blog_info.json') {
+              const info = await readUrl(resp_obj.data.files[i].url)
+              console.log(info)
+              // return info
+              data_rep.push(info)
+            }
+          }
+        }
+        // console.log(data_rep)
+        return res.status(200).json({data_rep})
+
+        // for (let i = 0; i < resp_obj.data.files.length; i++) {
+        //   if (resp_obj.data.files[i].name === 'blog_info.json') {
+        //     const info = await readUrl(resp_obj.data.files[i].url)
+        //     return res.status(200).json({ 'msg': 'Finish.', 'data': info })
+        //   }
+        // }
+
+      }
+      catch (error) {
+        console.log("ERROR", error)
+        return res.status(500).json(error)
+      }
+    } catch (error) {
+      console.log("ERROR", error)
+      return res.status(500).json(error)
+    }
+  },
+
 }
 
 module.exports = forumController

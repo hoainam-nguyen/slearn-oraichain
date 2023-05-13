@@ -6,5 +6,7 @@ const forumController = require("../controllers/forumController")
 route.post("/create", forumController.createForum) // Create
 route.post("/update", forumController.updateForum) // Update
 route.get("/getthread", forumController.getForum) // Get 
+route.get("/getid",forumController.getId)
+route.get("/getallthread", forumController.getallForum) // Get 
 
 module.exports = route

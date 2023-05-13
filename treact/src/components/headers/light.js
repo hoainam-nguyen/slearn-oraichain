@@ -211,11 +211,11 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   const defaultLinks = [
     <NavLinks key={1}>
       <Link to="/about">
-        <NavLink>About</NavLink>
+        <NavLink>Home</NavLink>
       </Link>
 
       <DropdownContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-        <DropdownButton>Solutions</DropdownButton>
+        <DropdownButton>Features</DropdownButton>
         <DropdownMenu value={showMenu}>
           <DropdownItem>Item 1</DropdownItem>
           <DropdownItem>Item 2</DropdownItem>
@@ -224,7 +224,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
       </DropdownContainer>
 
       <Link to='/pricing'>
-        <NavLink >Pricing</NavLink>
+        <NavLink >Sharing</NavLink>
       </Link>
 
       <Link>
@@ -238,11 +238,11 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   ];
   const defaultLinkstrue = [<NavLinks key={1}>
     <Link to="/about">
-      <NavLink>About</NavLink>
+      <NavLink>Home</NavLink>
     </Link>
 
     <DropdownContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <DropdownButton>Solutions</DropdownButton>
+      <DropdownButton>Features</DropdownButton>
       <DropdownMenu value={showMenu}>
         <DropdownItem>
           <Link to="/forum">Forums</Link>
@@ -257,7 +257,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
     </DropdownContainer>
 
     <Link to='/pricing'>
-      <NavLink >Pricing</NavLink>
+      <NavLink >Sharing</NavLink>
     </Link>
     <Link>
       <NavLink >Contact Us</NavLink>

@@ -36,7 +36,8 @@ const LogoContainer = tw.div`flex items-center justify-center md:justify-start`;
 const LogoImg = tw.img`w-8`;
 const LogoText = tw.h5`ml-2 text-xl font-black tracking-wider text-gray-800`;
 
-const CopywrightNotice = tw.p`text-center text-sm sm:text-base mt-8 md:mt-0 font-medium text-gray-500`;
+// const CopywrightNotice = tw.p`text-center text-sm sm:text-base mt-2 md:mt-0 font-medium text-gray-500`;
+const CopywrightNotice = tw.p`text-center text-sm sm:text-base md:mt-0 font-medium text-gray-500`;
 
 const SocialLinksContainer = tw.div`mt-8 md:mt-0 flex`;
 const SocialLink = styled.a`
@@ -47,112 +48,113 @@ const SocialLink = styled.a`
 `;
 
 export default () => {
-  return (
-    <Container>
-      <Content>
-        <SixColumns>
-          <Column>
-            <ColumnHeading>Home</ColumnHeading>
-            <LinkList>
-              <LinkListItem>
-                <Link href="#">Blog</Link>
-              </LinkListItem>
-              <LinkListItem>
-                <Link href="#">FAQs</Link>
-              </LinkListItem>
-              <LinkListItem>
-                <Link href="#">Support</Link>
-              </LinkListItem>
-              <LinkListItem>
-                <Link href="#">About Us</Link>
-              </LinkListItem>
-            </LinkList>
-          </Column>
-          <Column>
-            <ColumnHeading>Features</ColumnHeading>
-            <LinkList>
-              <LinkListItem>
-                <Link href="#">Log In</Link>
-              </LinkListItem>
-              <LinkListItem>
-                <Link href="#">Personal</Link>
-              </LinkListItem>
-              <LinkListItem>
-                <Link href="#">Business</Link>
-              </LinkListItem>
-              <LinkListItem>
-                <Link href="#">Team</Link>
-              </LinkListItem>
-            </LinkList>
-          </Column>
-          <Column>
-            <ColumnHeading>Sharing </ColumnHeading>
-            <LinkList>
-              <LinkListItem>
-                <Link href="#">Logos</Link>
-              </LinkListItem>
-              <LinkListItem>
-                <Link href="#">Events</Link>
-              </LinkListItem>
-              <LinkListItem>
-                <Link href="#">Stories</Link>
-              </LinkListItem>
-              <LinkListItem>
-                <Link href="#">Office</Link>
-              </LinkListItem>
-            </LinkList>
-          </Column>
-          <Column>
-            <ColumnHeading>Contact us</ColumnHeading>
-            <LinkList>
-              <LinkListItem>
-                <Link href="#">GDPR</Link>
-              </LinkListItem>
-              <LinkListItem>
-                <Link href="#">Privacy Policy</Link>
-              </LinkListItem>
-              <LinkListItem>
-                <Link href="#">Terms of Service</Link>
-              </LinkListItem>
-              <LinkListItem>
-                <Link href="#">Disclaimer</Link>
-              </LinkListItem>
-            </LinkList>
-          </Column>
-          <SubscribeNewsletterColumn>
-            <SubscribeNewsletterContainer>
-              <ColumnHeading>Subscribe to our Newsletter</ColumnHeading>
-              <SubscribeText>
-                We deliver high quality blog posts written by professionals weekly. And we promise no spam.
-              </SubscribeText>
-              <SubscribeForm method="get" action="#">
-                <Input type="email" placeholder="Your Email Address" />
-                <SubscribeButton type="submit">Subscribe</SubscribeButton>
-              </SubscribeForm>
-            </SubscribeNewsletterContainer>
-          </SubscribeNewsletterColumn>
-        </SixColumns>
-        <Divider />
-        <ThreeColRow>
-          {/* <LogoContainer>
-            <LogoImg src={LogoImage} />
-            <LogoText>SLearn</LogoText>
-          </LogoContainer> */}
-          {/* <CopywrightNotice>&copy;</CopywrightNotice> */}
-          <CopywrightNotice>&copy; Copyright</CopywrightNotice>
-          {/* <SocialLinksContainer>
-            <SocialLink href="https://facebook.com">
-              <FacebookIcon />
-            </SocialLink>
-            <SocialLink href="https://twitter.com">
-              <TwitterIcon />
-            </SocialLink>
-            <SocialLink href="https://youtube.com">
-              <YoutubeIcon />
-            </SocialLink>
-          </SocialLinksContainer> */}
-        </ThreeColRow>
-      </Content>
-    </Container>
-  );
+  return <CopywrightNotice>&copy; Copyright2023-Slearn</CopywrightNotice>
+  // return (
+  //   <Container>
+  //     {/* <Content> */}
+  //       {/* <SixColumns>
+  //         <Column>
+  //           <ColumnHeading>Home</ColumnHeading>
+  //           <LinkList>
+  //             <LinkListItem>
+  //               <Link href="#">Blog</Link>
+  //             </LinkListItem>
+  //             <LinkListItem>
+  //               <Link href="#">FAQs</Link>
+  //             </LinkListItem>
+  //             <LinkListItem>
+  //               <Link href="#">Support</Link>
+  //             </LinkListItem>
+  //             <LinkListItem>
+  //               <Link href="#">About Us</Link>
+  //             </LinkListItem>
+  //           </LinkList>
+  //         </Column>
+  //         <Column>
+  //           <ColumnHeading>Features</ColumnHeading>
+  //           <LinkList>
+  //             <LinkListItem>
+  //               <Link href="#">Log In</Link>
+  //             </LinkListItem>
+  //             <LinkListItem>
+  //               <Link href="#">Personal</Link>
+  //             </LinkListItem>
+  //             <LinkListItem>
+  //               <Link href="#">Business</Link>
+  //             </LinkListItem>
+  //             <LinkListItem>
+  //               <Link href="#">Team</Link>
+  //             </LinkListItem>
+  //           </LinkList>
+  //         </Column>
+  //         <Column>
+  //           <ColumnHeading>Sharing </ColumnHeading>
+  //           <LinkList>
+  //             <LinkListItem>
+  //               <Link href="#">Logos</Link>
+  //             </LinkListItem>
+  //             <LinkListItem>
+  //               <Link href="#">Events</Link>
+  //             </LinkListItem>
+  //             <LinkListItem>
+  //               <Link href="#">Stories</Link>
+  //             </LinkListItem>
+  //             <LinkListItem>
+  //               <Link href="#">Office</Link>
+  //             </LinkListItem>
+  //           </LinkList>
+  //         </Column>
+  //         <Column>
+  //           <ColumnHeading>Contact us</ColumnHeading>
+  //           <LinkList>
+  //             <LinkListItem>
+  //               <Link href="#">GDPR</Link>
+  //             </LinkListItem>
+  //             <LinkListItem>
+  //               <Link href="#">Privacy Policy</Link>
+  //             </LinkListItem>
+  //             <LinkListItem>
+  //               <Link href="#">Terms of Service</Link>
+  //             </LinkListItem>
+  //             <LinkListItem>
+  //               <Link href="#">Disclaimer</Link>
+  //             </LinkListItem>
+  //           </LinkList>
+  //         </Column>
+  //         <SubscribeNewsletterColumn>
+  //           <SubscribeNewsletterContainer>
+  //             <ColumnHeading>Subscribe to our Newsletter</ColumnHeading>
+  //             <SubscribeText>
+  //               We deliver high quality blog posts written by professionals weekly. And we promise no spam.
+  //             </SubscribeText>
+  //             <SubscribeForm method="get" action="#">
+  //               <Input type="email" placeholder="Your Email Address" />
+  //               <SubscribeButton type="submit">Subscribe</SubscribeButton>
+  //             </SubscribeForm>
+  //           </SubscribeNewsletterContainer>
+  //         </SubscribeNewsletterColumn>
+  //       </SixColumns> */}
+  //       {/* <Divider /> */}
+  //       {/* <ThreeColRow> */}
+  //         {/* <LogoContainer>
+  //           <LogoImg src={LogoImage} />
+  //           <LogoText>SLearn</LogoText>
+  //         </LogoContainer> */}
+  //         {/* <CopywrightNotice>&copy;</CopywrightNotice> */}
+  //         <CopywrightNotice>&copy; Copyright</CopywrightNotice>
+  //         {/* <SocialLinksContainer>
+  //           <SocialLink href="https://facebook.com">
+  //             <FacebookIcon />
+  //           </SocialLink>
+  //           <SocialLink href="https://twitter.com">
+  //             <TwitterIcon />
+  //           </SocialLink>
+  //           <SocialLink href="https://youtube.com">
+  //             <YoutubeIcon />
+  //           </SocialLink>
+  //         </SocialLinksContainer> */}
+  //       {/* </ThreeColRow>/\ */}
+  //     {/* </Content> */}
+  //   </Container>
+  // );
 };
