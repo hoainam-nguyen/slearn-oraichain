@@ -7,7 +7,45 @@ import CreateNewThreadBtn from "./CreateNewThreadBtn";
 
 import "./styles.css"
 
-const ThreadInfo = () => {
+const ThreadInfo = ({
+    data = [
+        {
+            id: "1",
+            owner: "user_id",
+            metadata: {
+                title: "Fix bug for React code",
+                content: "I have a problem with my code...",
+                images: [],
+                likes: "5",
+                views: "20",
+                post_at: "1/1/2023",
+            },
+            comments: [
+                {
+                    id_cmt: "1",
+                    created_by: "henry",
+                    content: "You should do this...",
+                    datePost: "1/1/2023",
+                    images: [],
+                    upvoting: 3,
+                    downvoting: 1
+                },
+                {
+                    id_cmt: "2",
+                    created_by: "Tom",
+                    content: "You should do this...",
+                    datePost: "1/1/2023",
+                    images: [],
+                    upvoting: 1,
+                    downvoting: 1
+                },
+            ],
+            config: {},
+        },
+    ],
+}) => {
+    const [newdata, setNewData] = React.useState(data);
+    const [commentText, setCommentText] = React.useState("");
 
     const question_fake_data = {
         id: "1",

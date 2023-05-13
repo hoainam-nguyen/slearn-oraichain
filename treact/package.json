@@ -26,6 +26,7 @@
     "react-rnd": "^10.3.7",
     "react-router-dom": "^6.11.1",
     "react-scripts": "^5.0.1",
+    "react-simple-chatbot": "^0.6.1",
     "react-slick": "^0.29.0",
     "react-toastify": "^9.1.2",
     "request": "^2.88.2",
