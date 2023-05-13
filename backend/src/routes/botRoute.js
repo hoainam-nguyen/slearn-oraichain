@@ -1,10 +1,10 @@
 const express = require("express");
 const route = express.Router();
-const userController = require('../controllers/userController')
+const botController = require('../controllers/botController')
 
 // Define endpoint
-route.post("/create", userController.createUser) // Create
-route.post("/update", userController.updateUser) // Update
-route.post("/getbot", userController.getUser) // Get 
+route.post("/create", botController.createBot) // Create
+route.post("/update", botController.updateBot) // Update
+route.get("/getbot", botController.getBot) // Get 
 
 module.exports = route

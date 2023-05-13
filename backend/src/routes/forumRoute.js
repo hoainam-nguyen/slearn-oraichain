@@ -1,10 +1,10 @@
 const express = require("express");
 const route = express.Router();
-const userController = require('../controllers/userController')
+const forumController = require("../controllers/forumController")
 
 // Define endpoint
-route.post("/create", userController.createUser) // Create
-route.post("/update", userController.updateUser) // Update
-route.post("/getthread", userController.getUser) // Get 
+route.post("/create", forumController.createForum) // Create
+route.post("/update", forumController.updateForum) // Update
+route.get("/getthread", forumController.getForum) // Get 
 
 module.exports = route
