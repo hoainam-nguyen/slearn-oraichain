@@ -108,7 +108,7 @@ const Chatbot = ({type="slearn"}) => {
 
       
 
-      const data = await postData('https://cors-anywhere.herokuapp.com/https://aiclub.uit.edu.vn/namnh/multi_bot/chat', {bot_id:type,  prompt: message })
+      const data = await postData('https://aiclub.uit.edu.vn/namnh/multi_bot/chat', {bot_id:type,  prompt: message })
       // console.log(data)
       if (data.msg == 'Finish!' && data.status_code == 200)
       {

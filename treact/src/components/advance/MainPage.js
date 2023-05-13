@@ -38,7 +38,7 @@ const MainAdvance = () => {
                     }
                     imageSrc="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=768&q=80"
                     imageDecoratorBlob={true}
-                    primaryButtonText="Try Now!"
+                    primaryButtonText="Try a beta!"
                     primaryButtonUrl="/advance/summarize"
                     watchVideoButtonText="Watch tutorial video!"
                 />
@@ -59,7 +59,7 @@ const MainAdvance = () => {
                             </Description>
                         </div>
                     }                    
-                    primaryButtonText="Try Now!"
+                    primaryButtonText="Try a beta!"
                     primaryButtonUrl="/advance/explain"
                     imageSrc={"https://images.unsplash.com/photo-1460306855393-0410f61241c7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=768&q=80"}
                     imageDecoratorBlob={true}

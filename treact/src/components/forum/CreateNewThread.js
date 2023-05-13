@@ -122,7 +122,7 @@ const CreateNewThread = () => {
             // console.log(name);
             try {
                 const id_current = await axios.get(
-                    "http://localhost:8010/forum/getid"
+                    "https://aiclub.uit.edu.vn/namnh/slearn/be/forum/getid"
                 );
                 // console.log(id_current);
                 const newThread = {
@@ -144,7 +144,7 @@ const CreateNewThread = () => {
                 // console.log(newThread)
 
                 axios
-                    .post("http://localhost:8010/forum/create", newThread)
+                    .post("https://aiclub.uit.edu.vn/namnh/slearn/be/forum/create", newThread)
                     .then((response) => {
                         // console.log(response)
                         history("/forum");

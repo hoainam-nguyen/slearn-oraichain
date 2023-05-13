@@ -170,6 +170,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
+
+function checkCommentFunction(url = "", data = {}) {
+    return fetch(url, {
+        method: "POST",
+        redirect: 'follow',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    }).then(response => response.json());
+}
+
 const ThreadInfo = ({
     data = [
         {
@@ -215,10 +228,10 @@ const ThreadInfo = ({
     // console.log(id)
 
     React.useEffect(() => {
-        // console.log(`http://localhost:8010/forum/getthread?id=${id}`)
+        // console.log(`https://aiclub.uit.edu.vn/namnh/slearn/be/forum/getthread?id=${id}`)
         async function fetchData() {
             const response = await axios.get(
-                `http://localhost:8010/forum/getthread?id=${id}`
+                `https://aiclub.uit.edu.vn/namnh/slearn/be/forum/getthread?id=${id}`
             );
             const new_data = response.data.data;
             console.log(new_data);
@@ -314,34 +327,14 @@ const ThreadInfo = ({
         console.log(updatedData);
     };
 
-    function postData(url = "", data = {}) {
-        return fetch(url, {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        }).then((response) => response.json());
-    }
-
     // check comment is truthy
-    const checkCommentTruthy = (comment) => {
-        // var randomNum = Math.floor(Math.random() * 2); // Tạo số ngẫu nhiên từ 0 đến 1
-        // if (randomNum === 1) {
-        //     return true;
-        // } else {
-        //     return false;
-        // }
-        console.log(comment);
-
-        const res = postData({
-            url: "https://aiclub.uit.edu.vn/namnh/multi_bot/chat",
-            data: { bot_id: "checkcomment", prompt: comment },
-        });
-        console.log(res);
-        return !res.negative;
+    const checkCommentTruthy =  (comment) => {
+        // const url = "https://api.ai-market.dinohub.io/ai-market/services/d41d490e-4555-44eb-9a78-e5e2f6f71472/endpoints/a9c25f4b-e8d3-4a36-a2c9-949a5679c3ee/free?customer_token=5ff8f383b6e3aa588285a536fe04b18949d77ab9db951120dfc889323cd652d5";
+        
+        let url = "https://aiclub.uit.edu.vn/namnh/multi_bot/chat"
+        const res = checkCommentFunction(url, { bot_id: "checkcomment", prompt: comment })
+        console.log(res.content.answer.negative)
+        return res.content.answer.negative;
     };
 
     const handleSubmitBtn = (event) => {
@@ -351,7 +344,10 @@ const ThreadInfo = ({
         }
 
         // kiem tra comment lieu co dang tin
-        if (!checkCommentTruthy(commentText)) {
+        console.log(commentText)
+        const flag_check = checkCommentTruthy(commentText) 
+        console.log(flag_check)
+        if (flag_check) {
             // thong bao comment co van de, va khong cho dang tin
             alert("Please check your comment!");
             return;

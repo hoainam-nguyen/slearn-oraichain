@@ -7,7 +7,7 @@ import axios from "axios";
 
 function getallthreads() {
     const data = axios
-        .get("http://localhost:8010/forum/getallthread")
+        .get("https://aiclub.uit.edu.vn/namnh/slearn/be/forum/getallthread")
         .then(function(response) {
             // console.log(response.data.data_rep)//
             return response.data.data_rep;
@@ -24,7 +24,7 @@ export default () => {
     useEffect(() => {
         async function fetchData() {
             const response = await axios.get(
-                "http://localhost:8010/forum/getallthread"
+                "https://aiclub.uit.edu.vn/namnh/slearn/be/forum/getallthread"
             );
             setData(response.data.data_rep);
         }

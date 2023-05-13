@@ -48,7 +48,7 @@ const SocialLink = styled.a`
 `;
 
 export default () => {
-  return <CopywrightNotice>&copy; Copyright2023-Slearn</CopywrightNotice>
+  return <CopywrightNotice>&copy; 2023 - SLearn@OraichainHackathon</CopywrightNotice>
   // return (
   //   <Container>
   //     {/* <Content> */}
