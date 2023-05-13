@@ -148,23 +148,23 @@ export default function App() {
                         }}>
                     Loading...</div>}>
                     <Routes>
-                        <Route path="/" element={<RestaurantLandingPage />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/signup" element={<Signup />} />
-                        <Route path="/pricing" element={<Pricing />} />
-                        <Route path="/blog" element={<Blog />} />
-                        <Route path="/about" element={<About />} />
-                        <Route path="/user" element={<User />} />
-                        <Route path="/chatbot/:type/:name" element={<BotRenderer />} />
-                        <Route path="/blog/post" element={<Blogpost />} />
-                        <Route path="/forum/" element={<Forum />} />
-                        <Route path="/forum/thread/:id" element={<Thread />} />
-                        <Route path="/forum/create-new-thread" element={<CreateThreadForum />} />
-                        <Route path="/usernew" element={<Usernew />} />
-                        <Route path="/advance/" element={<Advance />} />
-                        <Route path="/advance/summarize" element={<AdvanceSummarize />} />
-                        <Route path="/advance/explain" element={<AdvanceExplain />} />
-                        <Route path="/chatbot/create-chatbot" element={<CreateChatbot />} />
+                        <Route path="/" element={<RestaurantLandingPage/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/signup" element={<Signup/>}/>
+                        <Route path="/pricing" element={<Pricing/>}/>
+                        <Route path="/blog" element={<Blog/>}/>
+                        <Route path="/about" element={<About/>}/>
+                        <Route path="/user" element={<User/>}/>
+                        <Route path="/chatbot/:type" element={<BotRenderer/>}/>
+                        <Route path="/blog/post" element={<Blogpost/>}/>
+                        <Route path="/forum/" element={<Forum/>}/>
+                        <Route path="/forum/thread/:id" element={<Thread/>}/>
+                        <Route path="/forum/create-new-thread" element={<CreateThreadForum/>}/>
+                        <Route path="/usernew" element={<Usernew/>}/>
+                        <Route path="/advance/" element={<Advance/>}/>
+                        <Route path="/advance/summarize" element={<AdvanceSummarize/>}/>
+                        <Route path="/advance/explain" element={<AdvanceExplain/>}/>
+                        <Route path="/chatbot/create-chatbot" element={<CreateChatbot/>}/>
                     </Routes>
                 </Suspense>
             </Router>

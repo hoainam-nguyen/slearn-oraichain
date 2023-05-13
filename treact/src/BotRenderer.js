@@ -1,35 +1,31 @@
 import { useParams } from "react-router-dom";
 import ImageScentext from "components/chatbot/ImageScentext";
-import LanguageGPT from "components/chatbot/LanguageGPT";
+import Slearn from "components/chatbot/LanguageGPT";
 import LanguageChat from "components/chatbot/LanguageChat";
 
 export const Components = 
 {
-    image:
-    {
-        Scentext:
+    Scentext:
         {
             url:"#",
             Component:ImageScentext
-        }
-    },
-    language:
-    {
-        LanguageGPT:{
-            url:"#",
-            Component:LanguageGPT
         },
-        LanguageChat:
+    slearn:{
+            url:"#",
+            Component:Slearn
+        },
+    LanguageChat:
         {
             url:"#",
             Component:LanguageChat
         }
-    }
 
 }
 
 export default ()=> {
-    const {type, name} = useParams()
-    const Component = Components[type][name].Component
-    return <Component/>
+    const { type } = useParams()
+
+    // const Component = Components[type].Component
+    // console.log(Component)
+    return <Slearn type={type}/>
 }
