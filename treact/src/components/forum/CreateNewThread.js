@@ -85,7 +85,6 @@ const CreateNewThread = () => {
 
     const handleSubmitBtn = (event) => {
         event.preventDefault();
-
         const newThread = {
             owner: "user_id",
             metadata: {
@@ -99,7 +98,6 @@ const CreateNewThread = () => {
             comments: [],
             config: {},
         };
-
         console.log(newThread);
     };
 

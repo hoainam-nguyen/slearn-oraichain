@@ -47,7 +47,7 @@ const ThreadInfo = ({
                     datePost: "1/1/2023",
                     images: [],
                     upvoting: 3,
-                    downvoting: 1,
+                    downvoting: 1
                 },
                 {
                     id_cmt: "2",
@@ -56,7 +56,7 @@ const ThreadInfo = ({
                     datePost: "1/1/2023",
                     images: [],
                     upvoting: 1,
-                    downvoting: 1,
+                    downvoting: 1
                 },
             ],
             config: {},
