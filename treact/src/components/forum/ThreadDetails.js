@@ -5,10 +5,7 @@
 // import SearchBar from "./SearchBar";
 // import CreateNewThreadBtn from "./CreateNewThreadBtn";
 
-
 // import "./styles.css"
-
-
 
 // const ThreadInfo = async({
 //     data = [
@@ -46,7 +43,7 @@
 //             config: {},
 //         },
 //     ],
-// }) => { 
+// }) => {
 //     const [newdata, setNewData] = React.useState(data);
 //     const [commentText, setCommentText] = React.useState("");
 //     const question_fake_data = {
@@ -75,7 +72,6 @@
 //             userAvatar: "https://i.imgur.com/8Km9tLL.png"
 //         }
 //     ]
-
 
 //     return (
 //         <>
@@ -144,7 +140,6 @@
 
 // export default ThreadInfo;
 
-
 import React from "react";
 import { useParams } from "react-router-dom";
 import ThreadSummary from "./ThreadSumary";
@@ -196,7 +191,7 @@ const ThreadInfo = ({
                     datePost: "1/1/2023",
                     images: [],
                     upvoting: 3,
-                    downvoting: 1
+                    downvoting: 1,
                 },
                 {
                     id_cmt: "2",
@@ -205,7 +200,7 @@ const ThreadInfo = ({
                     datePost: "1/1/2023",
                     images: [],
                     upvoting: 1,
-                    downvoting: 1
+                    downvoting: 1,
                 },
             ],
             config: {},
@@ -216,15 +211,17 @@ const ThreadInfo = ({
     const [commentText, setCommentText] = React.useState("");
     // const [dataReq, setDataReq] = React.useState();
 
-    const { id } = useParams()
+    const { id } = useParams();
     // console.log(id)
 
     React.useEffect(() => {
         // console.log(`http://localhost:8010/forum/getthread?id=${id}`)
         async function fetchData() {
-            const response = await axios.get(`http://localhost:8010/forum/getthread?id=${id}`);
-            const new_data = response.data.data
-            console.log(new_data)
+            const response = await axios.get(
+                `http://localhost:8010/forum/getthread?id=${id}`
+            );
+            const new_data = response.data.data;
+            console.log(new_data);
             setNewData([
                 {
                     id: new_data.id,
@@ -245,7 +242,7 @@ const ThreadInfo = ({
         fetchData();
     }, []);
 
-    console.log(newdata)
+    console.log(newdata);
 
     const classes = useStyles();
 
@@ -317,9 +314,46 @@ const ThreadInfo = ({
         console.log(updatedData);
     };
 
+    function postData(url = "", data = {}) {
+        return fetch(url, {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        }).then((response) => response.json());
+    }
+
+    // check comment is truthy
+    const checkCommentTruthy = (comment) => {
+        // var randomNum = Math.floor(Math.random() * 2); // Tạo số ngẫu nhiên từ 0 đến 1
+        // if (randomNum === 1) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+        console.log(comment);
+
+        const res = postData({
+            url: "https://aiclub.uit.edu.vn/namnh/multi_bot/chat",
+            data: { bot_id: "checkcomment", prompt: comment },
+        });
+        console.log(res);
+        return !res.negative;
+    };
+
     const handleSubmitBtn = (event) => {
         event.preventDefault();
         if (commentText.trim() === "") {
+            return;
+        }
+
+        // kiem tra comment lieu co dang tin
+        if (!checkCommentTruthy(commentText)) {
+            // thong bao comment co van de, va khong cho dang tin
+            alert("Please check your comment!");
             return;
         }
 

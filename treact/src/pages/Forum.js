@@ -6,14 +6,16 @@ import Footer from "components/footers/FiveColumnWithInputForm.js";
 import axios from "axios";
 
 function getallthreads() {
-    const data = axios.get("http://localhost:8010/forum/getallthread")
-        .then(function (response) {
+    const data = axios
+        .get("http://localhost:8010/forum/getallthread")
+        .then(function(response) {
             // console.log(response.data.data_rep)//
-            return response.data.data_rep
-        }).catch(function (err) {
-            console.log(err)
+            return response.data.data_rep;
         })
-    return data
+        .catch(function(err) {
+            console.log(err);
+        });
+    return data;
 }
 
 export default () => {
@@ -21,7 +23,9 @@ export default () => {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await axios.get("http://localhost:8010/forum/getallthread");
+            const response = await axios.get(
+                "http://localhost:8010/forum/getallthread"
+            );
             setData(response.data.data_rep);
         }
         fetchData();
@@ -33,5 +37,5 @@ export default () => {
             <Forum data={data} />
             <Footer />
         </AnimationRevealPage>
-    )
-}
+    );
+};

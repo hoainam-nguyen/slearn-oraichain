@@ -3,7 +3,7 @@ import tw, { styled } from "twin.macro";
 import "./styles.css";
 import { SigningCosmosClient } from "@cosmjs/launchpad";
 import axios from "axios";
-import { useNavigate   } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const FormContainer = styled.div`
     ${tw`flex flex-col items-center justify-center h-full`}
@@ -89,14 +89,13 @@ const CreateNewThread = () => {
     const [category, setCategory] = useState("");
     const [content, setContent] = useState("");
     const [image, setImage] = useState(null);
-    const history = useNavigate()
+    const history = useNavigate();
 
     const handleSubmitBtn = async (event) => {
         event.preventDefault();
         if (!window.keplr) {
             alert("Please install keplr extension");
-        }
-        else {
+        } else {
             const chainId = "cosmoshub-4";
 
             // Enabling before using the Keplr is recommended.
@@ -116,13 +115,15 @@ const CreateNewThread = () => {
             const _ = new SigningCosmosClient(
                 "https://lcd-cosmoshub.keplr.app",
                 accounts[0].address,
-                offlineSigner,
+                offlineSigner
             );
-            const name = await window.keplr.getKey(chainId)
+            const name = await window.keplr.getKey(chainId);
 
             // console.log(name);
             try {
-                const id_current = await axios.get("http://localhost:8010/forum/getid")
+                const id_current = await axios.get(
+                    "http://localhost:8010/forum/getid"
+                );
                 // console.log(id_current);
                 const newThread = {
                     id: id_current.data + 1,
@@ -131,7 +132,7 @@ const CreateNewThread = () => {
                         title: { title },
                         content: { content },
                         images: [{ image }],
-                        topic: {category},
+                        topic: { category },
                         likes: "0",
                         views: "0",
                         post_at: "1/1/2023",
@@ -141,20 +142,19 @@ const CreateNewThread = () => {
                     config: {},
                 };
                 // console.log(newThread)
-    
-                axios.post("http://localhost:8010/forum/create", newThread)
+
+                axios
+                    .post("http://localhost:8010/forum/create", newThread)
                     .then((response) => {
                         // console.log(response)
-                        history('/forum')
-
-                    }).catch((err) => {
-                        console.log("ERROR",err)
+                        history("/forum");
                     })
+                    .catch((err) => {
+                        console.log("ERROR", err);
+                    });
+            } catch (err) {
+                console.log("ERROR", err);
             }
-            catch(err) {
-                console.log("ERROR",err)
-            }
-
         }
     };
 
