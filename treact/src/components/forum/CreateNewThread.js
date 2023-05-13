@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import tw, { styled } from "twin.macro";
 import "./styles.css";
+import { SigningCosmosClient } from "@cosmjs/launchpad";
+import axios from "axios";
+import { useNavigate   } from 'react-router-dom';
 
 const FormContainer = styled.div`
     ${tw`flex flex-col items-center justify-center h-full`}
@@ -82,23 +85,73 @@ const CreateNewThread = () => {
     const [category, setCategory] = useState("");
     const [content, setContent] = useState("");
     const [image, setImage] = useState(null);
+    const history = useNavigate()
 
-    const handleSubmitBtn = (event) => {
+    const handleSubmitBtn = async (event) => {
         event.preventDefault();
-        const newThread = {
-            owner: "user_id",
-            metadata: {
-                title: { title },
-                content: { content },
-                images: [{ image }],
-                likes: "0",
-                views: "0",
-                post_at: "1/1/2023",
-            },
-            comments: [],
-            config: {},
-        };
-        console.log(newThread);
+        if (!window.keplr) {
+            alert("Please install keplr extension");
+        }
+        else {
+            const chainId = "cosmoshub-4";
+
+            // Enabling before using the Keplr is recommended.
+            // This method will ask the user whether to allow access if they haven't visited this website.
+            // Also, it will request that the user unlock the wallet if the wallet is locked.
+            await window.keplr.enable(chainId);
+
+            const offlineSigner = window.keplr.getOfflineSigner(chainId);
+
+            // You can get the address/public keys by `getAccounts` method.
+            // It can return the array of address/public key.
+            // But, currently, Keplr extension manages only one address/public key pair.
+            // XXX: This line is needed to set the sender address for SigningCosmosClient.
+            const accounts = await offlineSigner.getAccounts();
+
+            // Initialize the gaia api with the offline signer that is injected by Keplr extension.
+            const _ = new SigningCosmosClient(
+                "https://lcd-cosmoshub.keplr.app",
+                accounts[0].address,
+                offlineSigner,
+            );
+            const name = await window.keplr.getKey(chainId)
+
+            // console.log(name);
+            try {
+                const id_current = await axios.get("http://localhost:8010/forum/getid")
+                // console.log(id_current);
+                const newThread = {
+                    id: id_current.data + 1,
+                    owner: name.bech32Address,
+                    metadata: {
+                        title: { title },
+                        content: { content },
+                        images: [{ image }],
+                        topic: {category},
+                        likes: "0",
+                        views: "0",
+                        post_at: "1/1/2023",
+                        name_onwer: name.name,
+                    },
+                    comments: [],
+                    config: {},
+                };
+                // console.log(newThread)
+    
+                axios.post("http://localhost:8010/forum/create", newThread)
+                    .then((response) => {
+                        // console.log(response)
+                        history('/forum')
+
+                    }).catch((err) => {
+                        console.log("ERROR",err)
+                    })
+            }
+            catch(err) {
+                console.log("ERROR",err)
+            }
+
+        }
     };
 
     return (

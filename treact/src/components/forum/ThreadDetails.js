@@ -5,9 +5,12 @@ import MyAnswer from "./MyAnswer";
 import SearchBar from "./SearchBar";
 import CreateNewThreadBtn from "./CreateNewThreadBtn";
 
+
 import "./styles.css"
 
-const ThreadInfo = ({
+
+
+const ThreadInfo = async({
     data = [
         {
             id: "1",
@@ -43,10 +46,9 @@ const ThreadInfo = ({
             config: {},
         },
     ],
-}) => {
+}) => { 
     const [newdata, setNewData] = React.useState(data);
     const [commentText, setCommentText] = React.useState("");
-
     const question_fake_data = {
         id: "1",
         title: "Fix bug for React code",

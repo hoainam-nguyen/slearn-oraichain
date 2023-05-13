@@ -3,9 +3,9 @@ import React from "react";
 import ThreadSummary from "./ThreadSumary";
 import SearchBar from "./SearchBar";
 import CreateNewThreadBtn from "./CreateNewThreadBtn";
+import axios from "axios";
 
 import "./styles.css"
-
 
 const Forum = ({
     data = [
@@ -39,6 +39,7 @@ const Forum = ({
         }
     ]
 }) => {
+    console.log(data);
 
     return (
         <>
@@ -61,25 +62,25 @@ const Forum = ({
                                         value.id
                                     }
                                     title={
-                                        value.title
+                                        value.metadata.title.title
                                     }
                                     topic={
-                                        value.topic
+                                        value.metadata.topic.category
                                     }
                                     content={
-                                        value.content
+                                        value.metadata.content.content
                                     }
                                     author={
-                                        value.author
+                                        value.metadata.name_onwer
                                     }
                                     datePost={
-                                        value.datePost
+                                        value.metadata.post_at
                                     }
                                     replies={
                                         value.replies
                                     }
                                     views={
-                                        value.views
+                                        value.metadata.views
                                     }/>
                             )
                         })
