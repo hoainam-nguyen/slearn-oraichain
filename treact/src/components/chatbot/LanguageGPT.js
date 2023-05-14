@@ -36,7 +36,7 @@ const ChatTitle = tw.h3`
 const ChatBody = tw.div`
   px-4
   py-2
-  h-64
+  h-128
   overflow-y-auto
 `;
 

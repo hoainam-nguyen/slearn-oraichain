@@ -46,7 +46,7 @@ export default ({
       We have been doing this <wbr /> since <span tw="text-primary-500">1999.</span>
     </>
   ),
-  description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+  description = "We provide an intelligent learning platform that allows users to have engaging and exciting learning experiences. We are constantly improving the quality of our product, aiming to deliver a high-quality experience to our users.",
   primaryButtonText = "Learn More",
   primaryButtonUrl = "https://timerse.com",
   imageSrc = StatsIllustrationSrc,
@@ -61,18 +61,18 @@ export default ({
   // The textOnLeft boolean prop can be used to display either the text on left or right side of the image.
   //Change the statistics variable as you like, add or delete objects
   const defaultStatistics = [
-    {
-      key: "Clients",
-      value: "2282+"
-    },
-    {
-      key: "Projects",
-      value: "3891+"
-    },
-    {
-      key: "Awards",
-      value: "1000+"
-    }
+    // {
+    //   key: "Clients",
+    //   value: "2282+"
+    // },
+    // {
+    //   key: "Projects",
+    //   value: "3891+"
+    // },
+    // {
+    //   key: "Awards",
+    //   value: "1000+"
+    // }
   ];
 
   if (!statistics) statistics = defaultStatistics;
@@ -89,17 +89,17 @@ export default ({
             {subheading && <Subheading>{subheading}</Subheading>}
             <Heading>{heading}</Heading>
             <Description>{description}</Description>
-            <Statistics>
+            {/* <Statistics>
               {statistics.map((statistic, index) => (
                 <Statistic key={index}>
                   <Value>{statistic.value}</Value>
                   <Key>{statistic.key}</Key>
                 </Statistic>
               ))}
-            </Statistics>
-            <PrimaryButton as="a" href={primaryButtonUrl}>
+            </Statistics> */}
+            {/* <PrimaryButton as="a" href={primaryButtonUrl}>
               {primaryButtonText}
-            </PrimaryButton>
+            </PrimaryButton> */}
           </TextContent>
         </TextColumn>
       </TwoColumn>
